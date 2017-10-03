@@ -4,7 +4,7 @@ export default class Add_list extends Component {
     render() {
         return (
             <div>
-                <Add_input/>
+                <Add_input />
             </div>
         )
     }

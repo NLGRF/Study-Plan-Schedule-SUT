@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import classnames from 'classnames'
+import {ref,get} from '../config/firebase'
 export default class Add_input extends Component {
     constructor(){
         super();
@@ -16,7 +17,6 @@ export default class Add_input extends Component {
         }
         this.handleChange =this.handleChange.bind(this);
         this.handleSubmit =this.handleSubmit.bind(this);
-        //this.seletCouse = this.seletCouse.bind(this);
 }
 handleChange(e){
     this.setState({todo:[],Name:'',Credit:''});
@@ -31,9 +31,6 @@ handleChange(e){
       this.setState({ [e.target.name]: e.target.value });
     }
 } 
-    textOnchange(e){
-        this.setState({ [e.target.name]: e.target.value });
-    }
 _getWeatherInfo = (id) => {
     const main = this;
     let query = null;
@@ -49,7 +46,6 @@ _getWeatherInfo = (id) => {
   fetch(`https://still-mountain-63520.herokuapp.com/api.php?id=${query}`)//103101 202109
   .then( function(response) {
     return response;
-    //console.log(response);
   })
   .then( function(response) {
       if(response.status===500){
@@ -76,9 +72,7 @@ _getWeatherInfo = (id) => {
       let todo=[]
       const {
             Name,
-            Credit,
-            Groups,
-            infoStatus,
+            Credit
         } = this.state
         let d =this.state.Groups;
         //console.log(d);
@@ -88,7 +82,7 @@ _getWeatherInfo = (id) => {
         for(let i=1;i<=size;i++){
             for(let j=0;j<= Object.keys(d[i]).length;j++){ 
                //console.log(`key ${j}`,d[i][j]); 
-              // console.log(Object.keys(d[i]).length)
+               //console.log(Object.keys(d[i]).length)
                if((d[i][j]!==undefined&&j===0)&&Object.keys(d[i]).length===4){ //3 
                    row.push(<div>
                                <div > 
@@ -101,9 +95,11 @@ _getWeatherInfo = (id) => {
                                </div>
                            </div>
                            );
-                           todo.push({
-                              Date:`${d[i][j].Date}${d[i][j].Time}${d[i][j].Room}=${d[i][j+1].Date}${d[i][j].Time}${d[i][j+1].Room}=${d[i][j+2].Date}${d[i][j].Time}${d[i][j+2].Room}`.trim()
-                          })
+            todo.push({
+                  Name: Name,
+                  Date:`${d[i][j].Date}${d[i][j].Time}${d[i][j].Room}=${d[i][j+1].Date}${d[i][j].Time}${d[i][j+1].Room}=${d[i][j+2].Date}${d[i][j].Time}${d[i][j+2].Room}`.trim(),
+                  Credit:Credit
+             })
                            //console.log(j)
                 }
                else if((d[i][j]!==undefined&&j===0)&&Object.keys(d[i]).length===2){  //1
@@ -117,7 +113,9 @@ _getWeatherInfo = (id) => {
                              </div>
                           );
                           todo.push({
-                              Date:`${d[i][j].Date}${d[i][j].Time}${d[i][j].Room}`.trim()
+                              Name: Name,
+                              Date:`${d[i][j].Date}${d[i][j].Time}${d[i][j].Room}`.trim(),
+                              Credit:Credit
                           })
                           //console.log(j)
                }
@@ -132,12 +130,12 @@ _getWeatherInfo = (id) => {
                                   </div>
                            </div>
               );
-              //console.log(j)\
+              //console.log(j)
                 todo.push({
                     Name: Name,
                     Date:`${d[i][j].Date}${d[i][j].Time}${d[i][j].Room}=${d[i][j+1].Date}${d[i][j].Time}${d[i][j+1].Room}`.trim(),
                     Credit:Credit
-                })
+                });
                }
             }
             G++;
@@ -175,7 +173,15 @@ seletCouse=(G)=>{
     this.setState({table:this.state.table.concat(table)})
     console.log(table);
     this.setState({todo:[],Name:'',Credit:''})
+    ref.child('table').push(table[0]);
     //console.log("HHH",G);
+}
+componentDidMount() {
+    get.ref().child('table').once('value',(snap)=>{
+         snap.forEach((shot)=>{
+             console.log(shot.val());
+         })
+    })
 }
 componentWillMount() { 
     this._getWeatherInfo();
@@ -185,9 +191,7 @@ componentWillMount() {
         const {
               Name,
               Credit,
-              Groups,
               infoStatus,
-              row,
               todo
           } = this.state
           let data = null;
