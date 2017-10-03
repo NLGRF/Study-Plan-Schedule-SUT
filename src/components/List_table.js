@@ -6,7 +6,7 @@ class List_table extends React.Component {
          Name:undefined,
          Credit:undefined,
          Groups:[],
-         couse:'523101'
+         couse:'102108'
      }
  }
 componentWillMount(){
@@ -21,7 +21,7 @@ componentWillMount(){
     main.setState({
         infoStatus: 'loading'
     });
-    if(main.props.id>10000){
+    if(main.props.id){
     fetch(`https://still-mountain-63520.herokuapp.com/api.php?id=${this.state.couse}`)//103101 202109
     .then( function(response) {
       return response;
@@ -46,25 +46,11 @@ componentWillMount(){
         });
     }); 
 
-}
+ }
 }
     render() {
        // ['Two', 'Three']
-        // console.log(this.props.id);
-         const po= {0: {
-            Date: "จันทร์",
-            Time: "10:00-13:00",
-            Room: "B3102",
-            Building: "B"
-            },
-            1: {
-            Date: "จันทร์",
-            Time: "14:00-17:00",
-            Room: "F9",
-            Bulding: "F9"
-            }
-          }
-          //console.log(po)
+        // console.log(this.props.id)
            let row=[]
             const {
                   Name,
