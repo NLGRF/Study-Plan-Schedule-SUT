@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import classnames from 'classnames'
-import List_table from './List_table'
 export default class Add_input extends Component {
     constructor(){
         super();
@@ -13,15 +12,14 @@ export default class Add_input extends Component {
             couse:'102108',
             todo:[],
             row:[],
+            table:[]
         }
         this.handleChange =this.handleChange.bind(this);
         this.handleSubmit =this.handleSubmit.bind(this);
-        this.seletCouse = this.seletCouse.bind(this);
+        //this.seletCouse = this.seletCouse.bind(this);
 }
-static defaultProps = {
-    id: '523101',
-  };
 handleChange(e){
+    this.setState({todo:[],Name:'',Credit:''});
     if (!!this.state.error.user) {
       let error = Object.assign({}, this.state.error);
       delete error[e.target.name];
@@ -42,11 +40,9 @@ _getWeatherInfo = (id) => {
     main.setState({
         infoStatus: 'loading'
     });
-if (!id || id == '') {
-      query = this.props.id;
-    } else {
-      query = id;
-    }
+ if(id!==''){
+     query=id;
+ }
   main.setState({
       infoStatus: 'loading'
   });
@@ -56,45 +52,26 @@ if (!id || id == '') {
     //console.log(response);
   })
   .then( function(response) {
-      if(response.status!==200){
+      if(response.status===500){
           let error={};
-          error.user="Don,t have Couse ID";
+          error.user="Server error pls enter couse ID again !!! ><";
           main.setState({error})
       }
       setTimeout( function() {
           main.setState({
-          infoStatus: 'loaded'
+          infoStatus: 'loaded',
+          couseID:''
         });
         }, 1000);
     return response.json();
   }).then((data)=>{
-      let G=data.Groups;
+      //let G=data.Groups;
       //console.log(data)
      main.setState({
           Name:data.Name,
           Credit:data.Credit,
           Groups:data.Groups
       });
-  }).catch( function() {
-      main.setState({
-        infoStatus: 'error'
-      });
-  }); 
- }
-handleSubmit(event) {
-        event.preventDefault();
-        let error={};
-        if(!this.state.couseID) error.user = "Don't have data";
-        this.setState({error});
-       // alert("EROOR")
-         const inVali  = Object.keys(error).length === 0
-        if(inVali){
-           //console.log("JJ")
-           this._getWeatherInfo(this.state.couseID); 
-           this.setState({couseID:''})
-        }else{
-            console.log("Don't next,pls check you home")   
-      }
       let row=[]
       let todo=[]
       const {
@@ -114,7 +91,7 @@ handleSubmit(event) {
               // console.log(Object.keys(d[i]).length)
                if((d[i][j]!==undefined&&j===0)&&Object.keys(d[i]).length===4){ //3 
                    row.push(<div>
-                               <div onClick={this.seletCouse} key={i}> 
+                               <div > 
                                                   <tr className="List_A" >
                                                       <td>Groups: {G}</td>
                                                       <td>{d[i][j].Date}:{d[i][j].Time}=>{d[i][j].Room}</td>
@@ -131,7 +108,7 @@ handleSubmit(event) {
                 }
                else if((d[i][j]!==undefined&&j===0)&&Object.keys(d[i]).length===2){  //1
                   row.push(<div>
-                                  <div onClick={this.seletCouse(i)}  key={i}>
+                                  <div>
                                                   <tr className="List_A"  >
                                                       <td>Groups: {G}</td>
                                                       <td>{d[i][j].Date}:{d[i][j].Time}=>{d[i][j].Room}</td>
@@ -146,7 +123,7 @@ handleSubmit(event) {
                }
                else if((d[i][j]!==undefined&&j===0)&&Object.keys(d[i]).length===3){//2
                   row.push(<div>
-                                  <div onClick={this.seletCouse(i) }>
+                                  <div>
                                                   <tr className="button List_A" >
                                                       <td>Groups: {G}</td>
                                                       <td>{d[i][j].Date}:{d[i][j].Time}=>{d[i][j].Room}</td>
@@ -157,7 +134,9 @@ handleSubmit(event) {
               );
               //console.log(j)\
                 todo.push({
-                    Date:`${d[i][j].Date}${d[i][j].Time}${d[i][j].Room}=${d[i][j+1].Date}${d[i][j].Time}${d[i][j+1].Room}`.trim()
+                    Name: Name,
+                    Date:`${d[i][j].Date}${d[i][j].Time}${d[i][j].Room}=${d[i][j+1].Date}${d[i][j].Time}${d[i][j+1].Room}`.trim(),
+                    Credit:Credit
                 })
                }
             }
@@ -165,100 +144,66 @@ handleSubmit(event) {
         }
         this.setState({row:row,todo:todo});
       }
+     todo=[];
+     
+  }).catch( function() {
+      main.setState({
+        infoStatus: 'error'
+      });
+  }); 
+  
+ }
+handleSubmit(event) {
+        event.preventDefault();
+        let error={};
+        if(!this.state.couseID) error.user = "Don't have data";
+        this.setState({error});
+       // alert("EROOR")
+         const inVali  = Object.keys(error).length === 0
+        if(inVali){
+           //console.log(this.state.couseID.trim())
+           this._getWeatherInfo(this.state.couseID.trim());   
+         
+        }else{
+            console.log("Don't next,pls check you home")   
+      } 
 }
 seletCouse=(G)=>{
-    let d =this.state.Groups;
+    let table=[]
+    let { todo } = this.state;
+    table.push(todo[G]);
+    this.setState({table:this.state.table.concat(table)})
+    console.log(table);
+    this.setState({todo:[],Name:'',Credit:''})
     //console.log("HHH",G);
 }
-componentWillMount() {
+componentWillMount() { 
     this._getWeatherInfo();
   };
-  componentDisMount() {
-    this.handleSubmit()
-  };
-    render() {
-        let todo=[]
+    render() { 
+       //console.log(this.state.table);
         const {
               Name,
               Credit,
               Groups,
               infoStatus,
-              row
+              row,
+              todo
           } = this.state
-        //   let d =this.state.Groups;
-        //   //console.log(d);
-        //   var size = Object.keys(d).length;
-        //   let G=1;
-        //   if(d!==undefined){
-        //   for(let i=1;i<=size;i++){
-        //       for(let j=0;j<= Object.keys(d[i]).length;j++){ 
-        //          //console.log(`key ${j}`,d[i][j]); 
-        //         // console.log(Object.keys(d[i]).length)
-        //          if((d[i][j]!==undefined&&j===0)&&Object.keys(d[i]).length===4){ //3 
-        //              row.push(<div>
-        //                          <div onClick={this.seletCouse} key={i}> 
-        //                                             <tr className="List_A" >
-        //                                                 <td>Groups: {G}</td>
-        //                                                 <td>{d[i][j].Date}:{d[i][j].Time}=>{d[i][j].Room}</td>
-        //                                                 <td>{d[i][j+1].Date}:{d[i][j+1].Time}=>{d[i][j+1].Room}</td>
-        //                                                 <td>{d[i][j+2].Date}:{d[i][j+2].Time}=>{d[i][j+2].Room}</td>
-        //                                             </tr>
-        //                          </div>
-        //                      </div>
-        //                      );
-        //                      todo.push({
-        //                         Date:`${d[i][j].Date}${d[i][j].Time}${d[i][j].Room}=${d[i][j+1].Date}${d[i][j].Time}${d[i][j+1].Room}=${d[i][j+2].Date}${d[i][j].Time}${d[i][j+2].Room}`.trim()
-        //                     })
-        //                      //console.log(j)
-        //           }
-        //          else if((d[i][j]!==undefined&&j===0)&&Object.keys(d[i]).length===2){  //1
-        //             row.push(<div>
-        //                             <div onClick={this.seletCouse(i)}  key={i}>
-        //                                             <tr className="List_A"  >
-        //                                                 <td>Groups: {G}</td>
-        //                                                 <td>{d[i][j].Date}:{d[i][j].Time}=>{d[i][j].Room}</td>
-        //                                             </tr>
-        //                             </div>
-        //                        </div>
-        //                     );
-        //                     todo.push({
-        //                         Date:`${d[i][j].Date}${d[i][j].Time}${d[i][j].Room}`.trim()
-        //                     })
-        //                     //console.log(j)
-        //          }
-        //          else if((d[i][j]!==undefined&&j===0)&&Object.keys(d[i]).length===3){//2
-        //             row.push(<div>
-        //                             <div onClick={this.seletCouse(i) }>
-        //                                             <tr className="button List_A" >
-        //                                                 <td>Groups: {G}</td>
-        //                                                 <td>{d[i][j].Date}:{d[i][j].Time}=>{d[i][j].Room}</td>
-        //                                                 <td>{d[i][j+1].Date}:{d[i][j+1].Time}=>{d[i][j+1].Room}</td>
-        //                                             </tr>
-        //                             </div>
-        //                      </div>
-        //         );
-        //         //console.log(j)\
-        //           todo.push({
-        //               Date:`${d[i][j].Date}${d[i][j].Time}${d[i][j].Room}=${d[i][j+1].Date}${d[i][j].Time}${d[i][j+1].Room}`.trim()
-        //           })
-        //          }
-        //       }
-        //       G++;
-        //   }
-        // }
-          //row.splice(3,4);
-          //console.log(size)
-          //console.log(row);
-          //console.log(this.state.todo);
           let data = null;
           if (infoStatus === 'loaded'&&this.state.row.length>0) {
               data=<div><b>{Name}  - {Credit}</b>
-                    {row}
+                   {todo.map((d,idx)=>{
+                       let boundClick = this.seletCouse.bind(this, (idx));
+                        return <div className="button List_A" > <li  key={idx} onClick={boundClick}>Groups {idx+1} {d.Date}</li></div>
+                   })}
                     </div>
           } else if (infoStatus === 'loading') {
-            data = <div className="is-loading">Loading data...</div>
+            data = <div>
+                         <b>Loading data...</b>
+                  </div>
           } else if (infoStatus === 'error') {
-            data = <div className="info error">Enter you couse ID</div>
+            data = <div className="info error">{this.state.error.user}</div>
           }
         return (
             <div>
