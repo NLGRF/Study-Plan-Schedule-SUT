@@ -13,7 +13,8 @@ export default class Add_input extends Component {
             couse:'102108',
             todo:[],
             row:[],
-            table:[]
+            table:[],
+            check:[],
         }
         this.handleChange =this.handleChange.bind(this);
         this.handleSubmit =this.handleSubmit.bind(this);
@@ -56,7 +57,6 @@ _getWeatherInfo = (id) => {
       setTimeout( function() {
           main.setState({
           infoStatus: 'loaded',
-          couseID:''
         });
         }, 1000);
     return response.json();
@@ -143,7 +143,6 @@ _getWeatherInfo = (id) => {
         this.setState({row:row,todo:todo});
       }
      todo=[];
-     
   }).catch( function() {
       main.setState({
         infoStatus: 'error'
@@ -168,26 +167,47 @@ handleSubmit(event) {
 }
 seletCouse=(G)=>{
     let table=[]
-    let { todo } = this.state;
+    let check=[];
+    const that =this;
+    let { todo} = this.state;
     table.push(todo[G]);
-    this.setState({table:this.state.table.concat(table)})
+    check.push(this.state.couseID);
+    this.setState({check:this.state.check.concat(check)})
     console.log(table);
-    this.setState({todo:[],Name:'',Credit:''})
-    ref.child('table').push(table[0]);
-    //console.log("HHH",G);
+    if ((this.state.check.indexOf(`${this.state.couseID}`) > -1)){
+        console.log("มีข้อมูลอยู่เเล้ว"); 
+    }else if((this.state.check.indexOf(`${this.state.couseID}`) === - 1)){
+        this.setState({table:this.state.table.concat(table)})
+        if(this.state.couseID!==" "){ 
+           console.log("Save data successful !!!");  
+        ref.child('table').push(table[0]).then(()=>{
+              ref.child('table/check/').push(this.state.couseID);
+        });
+    }
+      
+    } 
+    console.log(this.state.check);
+    setTimeout(()=>{
+         that.setState({todo:[],Name:'',Credit:'',couseID:''})
+    },300);
 }
 componentDidMount() {
-    get.ref().child('table').once('value',(snap)=>{
+    let check=[]
+    get.ref().child('table/check/').once('value',(snap)=>{
          snap.forEach((shot)=>{
              console.log(shot.val());
+             check.push(shot.val())
          })
     })
+    this.setState({check})
 }
 componentWillMount() { 
+    this.seletCouse();
     this._getWeatherInfo();
   };
-    render() { 
-       //console.log(this.state.table);
+    render() {   
+        //console.log(this.state.check);
+        //console.log(this.state.table);
         const {
               Name,
               Credit,
