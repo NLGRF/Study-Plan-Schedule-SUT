@@ -61,8 +61,6 @@ _getWeatherInfo = (id) => {
         }, 1000);
     return response.json();
   }).then((data)=>{
-      //let G=data.Groups;
-      //console.log(data)
      main.setState({
           Name:data.Name,
           Credit:data.Credit,
@@ -96,6 +94,7 @@ _getWeatherInfo = (id) => {
                            </div>
                            );
             todo.push({
+                  Course:id,
                   Name: Name,
                   Date:`${d[i][j].Date}${d[i][j].Time}${d[i][j].Room}=${d[i][j+1].Date}${d[i][j].Time}${d[i][j+1].Room}=${d[i][j+2].Date}${d[i][j].Time}${d[i][j+2].Room}`.trim(),
                   Credit:Credit
@@ -113,6 +112,7 @@ _getWeatherInfo = (id) => {
                              </div>
                           );
                           todo.push({
+                              Course:id,
                               Name: Name,
                               Date:`${d[i][j].Date}${d[i][j].Time}${d[i][j].Room}`.trim(),
                               Credit:Credit
@@ -132,6 +132,7 @@ _getWeatherInfo = (id) => {
               );
               //console.log(j)
                 todo.push({
+                    Course:id,
                     Name: Name,
                     Date:`${d[i][j].Date}${d[i][j].Time}${d[i][j].Room}=${d[i][j+1].Date}${d[i][j].Time}${d[i][j+1].Room}`.trim(),
                     Credit:Credit
@@ -171,8 +172,6 @@ seletCouse=(G)=>{
     const that =this;
     let { todo} = this.state;
     table.push(todo[G]);
-    check.push(this.state.couseID);
-    this.setState({check:this.state.check.concat(check)})
     console.log(table);
     if ((this.state.check.indexOf(`${this.state.couseID}`) > -1)){
         console.log("มีข้อมูลอยู่เเล้ว"); 
@@ -180,11 +179,10 @@ seletCouse=(G)=>{
         this.setState({table:this.state.table.concat(table)})
         if(this.state.couseID!==" "){ 
            console.log("Save data successful !!!");  
-        ref.child('table').push(table[0]).then(()=>{
-              ref.child('table/check/').push(this.state.couseID);
-        });
-    }
-      
+           ref.child('table').push(table[0]);
+           check.push(this.state.couseID.trim());
+           this.setState({check:this.state.check.concat(check)});
+            }
     } 
     console.log(this.state.check);
     setTimeout(()=>{
@@ -193,10 +191,10 @@ seletCouse=(G)=>{
 }
 componentDidMount() {
     let check=[]
-    get.ref().child('table/check/').once('value',(snap)=>{
+    get.ref().child('table').once('value',(snap)=>{
          snap.forEach((shot)=>{
-             console.log(shot.val());
-             check.push(shot.val())
+             console.log(shot.val().Course);
+             check.push(shot.val().Course);
          })
     })
     this.setState({check})
@@ -219,7 +217,16 @@ componentWillMount() {
               data=<div><b>{Name}  - {Credit}</b>
                    {todo.map((d,idx)=>{
                        let boundClick = this.seletCouse.bind(this, (idx));
-                        return <div className="button List_A" > <li  key={idx} onClick={boundClick}>Groups {idx+1} {d.Date}</li></div>
+                        return <div className="field is-grouped" key={idx} >
+                            <p className="control is-expanded">
+                                 <div><b>Group</b> {idx+1} {d.Date}</div>  
+                            </p>
+                                <p className="control">
+                                <a className="button is-danger" onClick={boundClick} >
+                                   <p style={{fontSize:15}}>Selete</p> 
+                                </a>
+                            </p>
+                    </div>
                    })}
                     </div>
           } else if (infoStatus === 'loading') {

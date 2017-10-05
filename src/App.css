@@ -35,3 +35,26 @@
   color: #50fa7b;
   font: bold;
 }
+.headTable {
+  list-style-type: none; 
+  margin:0;
+  padding-left: 0px;
+  text-align: center;
+  overflow: hidden;
+  background-color: #333;
+}
+.list{
+   width: 40pt;
+   height: 40pt;
+   float: left;
+   background-color: #ff8080;
+   border-style: solid;
+   border-width: 2px;
+}
+.list div{
+  display: block;
+  color: white;
+  text-align: center;
+  font-size: 15px;
+  padding: 5px 0px;
+}
