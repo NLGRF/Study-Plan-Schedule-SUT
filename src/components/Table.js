@@ -2,9 +2,8 @@ import React, { Component } from 'react'
 import {get} from '../config/firebase'
 import HardTable from './HardTable.js'
 export default class Tables extends Component {
-    constructor(){
-        super();
-        this.state={
+    
+    state={
             task:[],
             Mo:[],
             Tu:[],
@@ -50,11 +49,12 @@ export default class Tables extends Component {
             }
           ],
           row:[],
-          data1:[{Date: "จันทร์08:00-10:00B1211",Name: "COMPUTER STATISTICS"},
-                 {Date: "จันทร์13:00-15:00B3103",Name: "INFORMATION SYSTEM DESIGN AND DEVELOPMENT"},
+          data1:[
+                 {Date: "จันทร์13:00-15:00B3103",Name: "INFORMATION SYSTEM "},
+                 {Date: "จันทร์08:00-10:00B1211",Name: "COMPUTER STATISTICS"},
+                 {Date: "จันทร์10:00-12:00B1211",Name: "Eng"},
         ],
-        } 
-    }
+} 
 componentDidMount(){
     const main= this;
     get.ref().child('table').once('value',(snapshot)=>{
@@ -106,7 +106,7 @@ componentDidMount(){
             }
             
         })
-        console.log(Mo,Tu,Fr,weight)
+        //console.log(Mo,Tu,Fr,weight)
         this.setState({
             Mo:Mo,Tu:Tu,We:We,Th:Th,Fr:Fr,Sa:Sa,weight:weight
         })
@@ -115,6 +115,19 @@ componentDidMount(){
     });
 }
 rowMo(){
+    function compare(a, b) {
+        const genreA = a.Date;
+        const genreB = b.Date;
+        
+        let comparison = 0;
+        if (genreA > genreB) {
+          comparison = 1;
+        } else if (genreA < genreB) {
+          comparison = -1;
+        }
+        return comparison;
+      }
+    console.log(this.state.data1.sort(compare));
     let row=[];let time1='',time2='';let deff=0;let sum ;let MO=[];let indexcss=0,indextime=0;
     this.state.data1.map((d,idx)=>{
         for(let i=0;i<2;i++){
@@ -137,25 +150,29 @@ rowMo(){
             row.push(<div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div>);   
             time1='';sum=' '; deff=0; time2='';
     }); 
-       //this.setState({Mon:this.state.Mon.push(MO)})
+    //console.log(MO);
     let temp;
-    //console.log(row);
-    console.log(MO);
-    for(let i=0;i<MO.length;i++){
-        for(let j=0;j<MO.length-1;j++){
-              if(Math.floor(((MO[j])/10))>Math.floor((MO[j+1])/10)){
-                  temp=row[j]
-                  row[j]=row[j+1];
-                  row[j+1]=temp
-              }
-          }
-      } 
-    // row.splice(0,0,<div className='list'><div>Mon</div></div>)
-    //   var arr = ['One', 'Two', 'Three'];
-    //   arr.splice(0, 0, "Zero"); //ระบุ parameter 2 เป็น 1 จะเท่ากับการ Replace 0 = add 2 = delete
-    //   console.log(arr);
-    //console.log(row[1]);
-    this.setState({row:row});
+    // Math.floor(((MO[j])/10))>Math.floor((MO[j+1])/10)
+    let index=0
+    let i=0;
+while(i<15){
+for(let index=0;index<MO.length;index++){ 
+    let math = Math.floor((MO[index])/10);
+    let long  = parseInt(Math.floor(((MO[index])%10)));
+        if(math===8){
+            i+=long;
+        }else if(math===10){
+            i+=long;
+        }else if(math===13){
+            i+=long;
+        }else{
+            row.splice(i,0,<div className='list'><div></div></div>)
+        }
+    }
+}
+    row.splice(0,0,<div className='list'><div>Mon</div></div>)
+    this.setState({row:row});  
+    //   console.log(bands.sort(compare));
 }
 render() {
        const { task,row } = this.state

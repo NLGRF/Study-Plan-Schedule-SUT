@@ -6,7 +6,8 @@ import Add_input   from './components/Add_input'
 class App extends Component {
   render() {
     return (
-      <div className="App" style={{paddingLeft:240,paddingRight:240,marginTop:50}}>
+      // style={{paddingLeft:240,paddingRight:240,marginTop:50}}
+      <div className="App" >
         <div style={{textAlign:'center'}}> 
         </div> 
           <Main/>
