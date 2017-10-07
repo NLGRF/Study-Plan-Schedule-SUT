@@ -5,7 +5,6 @@ import {get,ref } from '../config/firebase';
 export default class MyConsole extends Component {
     constructor(){
         super();
-       
         this.state={
             popup:false,
             name:'',
@@ -56,6 +55,27 @@ logOut(){
       }).catch(function(error) {
         
       });
+}
+deleteTable(name){
+    let { uid } = this.state
+      //console.log(name);
+    const main = this;
+    let todo=[]
+    ref.child(`users/${uid}/table/${name}`).remove().then(()=>{
+        console.log("Deleted")
+        get.ref().child(`users/${uid}/table/`).once('value',(snap)=>{
+            snap.forEach(shot=>{
+              let data= shot.val();
+              let keyget= Object.keys(shot.val())
+              console.log(data);
+              todo.push({
+                  name:data.name,
+                  detail:data.detail
+              }) 
+            })
+              main.setState({todo});
+          })
+    })
 }
 handleChange=(e)=>{
     if (!!this.state.error[e.target.name]) {
@@ -156,12 +176,19 @@ Add_Table(){
                           </p>
                       </div>
                     </div>
+                    <div className="navbar-item">
+                      <div className="field is-grouped">
+                          <p className="control">
+                             <p className="title is-4">Study Plan schedule</p>
+                          </p>
+                      </div>
+                    </div>
                </div>
                <div className="navbar-end">
                     <div className="navbar-item">
                       <div className="field is-grouped">
                           <p className="control">
-                              <a className="button is-danger" onClick={this.logOut}>Logout</a>
+                              <a className="button is-danger is-outlined" onClick={this.logOut}>Logout</a>
                           </p>
                       </div>
                     </div>
@@ -169,20 +196,22 @@ Add_Table(){
         </nav>
         {this.state.popup ? popup : ' '}
         {todo.map((d,idx)=>{
-                       //let boundClick = this.seletCouse.bind(this, (idx));
-                    return <div><br/><div className="field is-grouped" key={idx}  style={{marginLeft:250,marginRight:250,border:'solid 1px'}}>
+                   let boundClick = this.deleteTable.bind(this, (d.name));
+                    return <div><br/><a   className="field is-grouped" 
+                                            key={idx}  
+                                            style={{marginLeft:250,marginRight:250,border:'solid 1px',display:'flex'}} >
                             <p className="control is-expanded">
-                                 <div style={{marginLeft:5}}>
+                                 <div style={{marginLeft:5,color:'black'}}>
                                      <p><b>Name Tabe:&emsp;</b>{d.name}</p>
                                      <p><b>Detail:&emsp;&emsp;&emsp;&nbsp;</b> {d.detail}</p>
                                  </div>  
                             </p>
                                 <p className="control">
-                                <a className="button is-danger" style={{marginTop:5,marginBottom:5,marginRight:5}}>
-                                   <p style={{fontSize:15}}>Selete</p> 
+                                <a className="button is-danger is-outlined" style={{marginTop:5,marginBottom:5,marginRight:5}}>
+                                   <p style={{fontSize:15}} onClick={boundClick}>Delete</p> 
                                 </a>
                             </p>
-                       </div>
+                       </a>
                        </div>
                 })}
     </div>
