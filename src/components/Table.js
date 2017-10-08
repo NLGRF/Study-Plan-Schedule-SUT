@@ -177,7 +177,7 @@ for(let index=0;index<MO.length;index++){
 render() {
        const { task,row } = this.state
         return (
-            <div>
+            <div className="MyTable">
                 <HardTable/>
                 <div className="headTable">{row}</div>
             </div>

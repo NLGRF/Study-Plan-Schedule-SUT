@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import * as firebase from 'firebase';
-import {withRouter} from "react-router-dom";
+import {withRouter,Redirect,Route} from "react-router-dom";
 import {get,ref } from '../config/firebase';
+import View_Table from './view'
 export default class MyConsole extends Component {
     constructor(){
         super();
@@ -11,7 +12,8 @@ export default class MyConsole extends Component {
             detail:'',
             error:{},
             uid:'',
-            todo:[]
+            todo:[],
+            taskLoading:true
         } 
        this.logOut =this.logOut.bind(this);
        this.Add_Table = this.Add_Table.bind(this);
@@ -41,7 +43,7 @@ componentDidMount(){
             }) 
           })
            
-             this.setState({todo});
+             this.setState({todo,taskLoading:false});
         })
      }else{
         
@@ -113,19 +115,59 @@ handleSubmit(event) {
         }).then(()=>{
             this.setState({name:'',detail:'',popup:false});
         })
-       //this.props.Uid("keng");
-      //this.setState({done:true});
-        //this.setState({popup:false})
         this.setState({todo:this.state.todo.concat(todo)});
     }
+}
+ViweTabe(name){
+    console.log(name)
+    this.props.history.push(`/user/view/${this.state.uid}/${name}`);
 }
 Add_Table(){
      this.setState({popup:true});
 }
     render() {
-     const {todo} = this.state
-     console.log(todo);
-      let  popup=(<div style={{marginLeft:50,marginRight:50}}>
+     const {todo,taskLoading} = this.state 
+    
+     let taskList;
+     if(taskLoading){
+         taskList = <div className="title is-4">Loading...</div>;
+     } else if(todo.length){
+         taskList=(
+             <div>
+                  {todo.map((d,idx)=>{
+                    let boundClick = this.deleteTable.bind(this, (d.name));
+                    let views = this.ViweTabe.bind(this,(d.name));
+                    return(   <div className="list-bar container" >
+                        <br/>
+                   <div class="card">
+                    <header class="card-header">
+                      <p class="card-header-title" >
+                        <p style={{color:'#ff4d4d'}} >Name table:</p>&nbsp; {d.name}
+                      </p>
+                      <a href="#" class="card-header-icon" aria-label="more options">
+                        <span class="icon">
+                          <i class="fa fa-angle-down" aria-hidden="true"></i>
+                        </span>
+                      </a>
+                    </header>
+                    <div class="card-content">
+                      <div class="content">
+                           <b>Detail:&nbsp;</b>{d.detail}
+                      </div>
+                    </div>
+                    <footer class="card-footer">
+                      <a class="card-footer-item" onClick={views}><b>Viwe</b></a>
+                      <a class="card-footer-item" onClick={boundClick} ><b>Delete</b></a>
+                    </footer>
+                  </div>
+                       </div>)
+                  })}
+             </div>
+         )
+     }else{
+        taskList =  <div className="title is-1">No Tasks</div>;
+     }  
+     let  popup=(<div style={{marginLeft:50,marginRight:50}}>
                     <br/>
                        <div className="field is-horizontal">
                             <div className="field-label">
@@ -165,8 +207,9 @@ Add_Table(){
                                        <a className="button is-success" onClick={this.handleSubmit}>Create</a>
                                     </div>
             </div>)
+    //
         return (
-    <div style={{marginTop:10,marginLeft:50,marginRight:50}}>
+    <div className='bar-go containaer'>
             <nav className="navbar is-primary" role="navigation" aria-label="main navigation">
                 <div className="navbar-start">
                     <div className="navbar-item">
@@ -195,25 +238,8 @@ Add_Table(){
                </div>
         </nav>
         {this.state.popup ? popup : ' '}
-        {todo.map((d,idx)=>{
-                   let boundClick = this.deleteTable.bind(this, (d.name));
-                    return <div><br/><a   className="field is-grouped" 
-                                            key={idx}  
-                                            style={{marginLeft:250,marginRight:250,border:'solid 1px',display:'flex'}} >
-                            <p className="control is-expanded">
-                                 <div style={{marginLeft:5,color:'black'}}>
-                                     <p><b>Name Tabe:&emsp;</b>{d.name}</p>
-                                     <p><b>Detail:&emsp;&emsp;&emsp;&nbsp;</b> {d.detail}</p>
-                                 </div>  
-                            </p>
-                                <p className="control">
-                                <a className="button is-danger is-outlined" style={{marginTop:5,marginBottom:5,marginRight:5}}>
-                                   <p style={{fontSize:15}} onClick={boundClick}>Delete</p> 
-                                </a>
-                            </p>
-                       </a>
-                       </div>
-                })}
+        <br/>
+       {taskList}
     </div>
         )
     }

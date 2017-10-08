@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Link ,Redirect } from 'react-router-dom'
+import { Link ,Redirect ,withRouter} from 'react-router-dom'
 import classnames from 'classnames';
 import * as firebase from 'firebase';
 export default class Login extends Component {
@@ -14,6 +14,7 @@ export default class Login extends Component {
         this.handleSubmit = this.handleSubmit.bind(this); 
       }
 SingIn(){
+       const main =this;
         const email = this.state.email;
         const password = this.state.pass;
         firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
@@ -22,8 +23,10 @@ SingIn(){
               // [START_EXCLUDE]
               if (errorCode === 'auth/wrong-password') {
                 alert('Wrong password.');
+                main.props.history.push(`/`);
               } else {
                 alert(errorMessage);
+                main.props.history.push(`/`);
               }
               console.log(error);
             }).then(()=>{
