@@ -10,7 +10,8 @@ export default class Add_list extends Component {
        }
    }
 componentDidMount(){
-    get.ref().child('table').once('value',(snapshot)=>{
+    //console.log(this.props)
+    get.ref().child(`users/${this.props.uid}/table/${this.props.table}/course/`).once('value',(snapshot)=>{
         let task=[]
         snapshot.forEach(shot => {
            //console.log(shot.val())
