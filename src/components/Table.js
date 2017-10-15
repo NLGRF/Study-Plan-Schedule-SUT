@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {get} from '../config/firebase'
 import HardTable from './HardTable.js'
+import Add_List from './Add_List'
 export default class Tables extends Component {
     
     state={
@@ -50,11 +51,15 @@ export default class Tables extends Component {
           ],
           row:[],
           data1:[
-                 {Date: "จันทร์13:00-15:00B3103",Name: "INFORMATION SYSTEM "},
+                 {Date: "จันทร์15:00-17:00B3103",Name: "INFORMATION SYSTEM "},
                  {Date: "จันทร์08:00-10:00B1211",Name: "COMPUTER STATISTICS"},
                  {Date: "จันทร์10:00-12:00B1211",Name: "Eng"},
         ],
+        view:false
 } 
+View_list(){
+    this.setState({view:true});
+}
 componentDidMount(){
     const main= this;
     get.ref().child('table').once('value',(snapshot)=>{
@@ -155,19 +160,16 @@ rowMo(){
     // Math.floor(((MO[j])/10))>Math.floor((MO[j+1])/10)
     let index=0
     let i=0;
-while(i<15){
 for(let index=0;index<MO.length;index++){ 
     let math = Math.floor((MO[index])/10);
     let long  = parseInt(Math.floor(((MO[index])%10)));
-        if(math===8){
-            i+=long;
-        }else if(math===10){
-            i+=long;
-        }else if(math===13){
-            i+=long;
-        }else{
-            row.splice(i,0,<div className='list'><div></div></div>)
-        }
+    for(let j=1;j<=15;j++){
+       if(math===(j+7)){
+           j+=long;
+           break;
+       }else{
+           row.splice(j,0,<div className='list'><div></div></div>)
+       }       
     }
 }
     row.splice(0,0,<div className='list'><div>Mon</div></div>)
@@ -180,6 +182,9 @@ render() {
             <div className="MyTable">
                 <HardTable/>
                 <div className="headTable">{row}</div>
+                <br/>
+                <a class="button is-primary is-outlined" onClick={this.View_list.bind(this)}>List Course</a>
+                {this.state.view ? <Add_List uid={this.props.uid} table={this.props.table} />:''}
             </div>
         )
     }

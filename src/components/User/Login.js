@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import { Link ,Redirect ,withRouter} from 'react-router-dom'
+import { Link ,Redirect ,withRouter } from 'react-router-dom'
 import classnames from 'classnames';
 import * as firebase from 'firebase';
+import { facebookProvider ,app} from '../../config/firebase'
 export default class Login extends Component {
     constructor(props) {
         super(props);
@@ -23,22 +24,17 @@ SingIn(){
               // [START_EXCLUDE]
               if (errorCode === 'auth/wrong-password') {
                 alert('Wrong password.');
-                main.props.history.push(`/`);
+                window.location = "/"
               } else {
                 alert(errorMessage);
-                main.props.history.push(`/`);
+                window.location = "/"
               }
               console.log(error);
+              return error
             }).then(()=>{
-              var user = firebase.auth().currentUser;
-              if (user) {
-                 console.log(user.uid);
-                 //this.props.Uid(user.uid);
-              } else {
-                // No user is signed in.
-              }
-            }).then(()=>this.setState({done:true}));
-      }
+              this.setState({done:true})
+            });
+}
    handleChange=(e)=>{
         if (!!this.state.error[e.target.name]) {
           let error = Object.assign({}, this.state.error);
@@ -63,6 +59,19 @@ SingIn(){
            //this.props.Uid("keng");
           //this.setState({done:true});
         }
+}
+authFacebook(){
+  app.auth().signInWithPopup(facebookProvider)
+  .then((user, error) => {
+    if (error) {
+      //this.toaster.show({ intent: Intent.DANGER, message: "Unable to sign in with Facebook" })
+      console.log(error)
+    } else {
+      //this.props.setCurrentUser(user)
+      //console.log(user)
+    this.setState({ done: true })
+    }
+  })
 }
     render() {
       const form =(
@@ -94,8 +103,11 @@ SingIn(){
           </div>
           <br/>
         </div>
-           <input type="submit" className='button is-primary App-input-btn' value='Login'/>
+           <input type="submit" className='button is-primary App-input-btn' value='Login' style={{width:150}}/>
       </form>
+        <p>
+          <a class="button is-info" style={{width:150,marginTop:10}} onClick={this.authFacebook.bind(this)}>Facebook</a>
+        </p>
         <u className='subtitle is-5' style={{fontSize:15}}><Link to ='/signup'>Create account</Link></u>
         </div>
     </div>

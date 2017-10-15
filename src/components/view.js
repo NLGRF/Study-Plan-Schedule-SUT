@@ -9,7 +9,8 @@ constructor(){
           table:'',
           uid:'',
           done:false,
-          view:true
+          view:true,
+          list:false,
     }
     this.MyTable_onClick = this.MyTable_onClick.bind(this)
     this.Add_Course_onClick =this.Add_Course_onClick.bind(this)
@@ -21,7 +22,7 @@ componentDidMount(){
     this.setState({
          table:data.table,
          uid:data.uid,
-         done:true                
+         done:true,           
      });
     //console.log(data.uid,data.table);
 }
@@ -43,7 +44,7 @@ Add_Course_onClick(){
          let MyTable =(
              <div className="container" >
                  <br/>
-                 <Tables/>
+                 <Tables uid={this.state.uid} table={this.state.table}/>
              </div>
          )
         return (
@@ -84,7 +85,7 @@ Add_Course_onClick(){
              </nav>
              {this.state.view ? MyTable : <div className="container">
                                             <br/>
-                                             <Add_input/>
+                                             <Add_input uid={this.state.uid} table={this.state.table} />
                                             </div>}
     </div>
         )

@@ -51,7 +51,7 @@ _getWeatherInfo = (id) => {
   .then( function(response) {
       if(response.status===500){
           let error={};
-          error.user="Server error pls enter couse ID again !!! ><";
+          error.user="Enter couse ID again !!! ><";
           main.setState({error})
       }
       setTimeout( function() {
@@ -179,7 +179,7 @@ seletCouse=(G)=>{
         this.setState({table:this.state.table.concat(table)})
         if(this.state.couseID!==" "){ 
            console.log("Save data successful !!!");  
-           ref.child('table').push(table[0]);
+           ref.child(`users/${this.props.uid}/table/${this.props.table}/course/`).push(table[0]);
            check.push(this.state.couseID.trim());
            this.setState({check:this.state.check.concat(check)});
             }
@@ -191,7 +191,7 @@ seletCouse=(G)=>{
 }
 componentDidMount() {
     let check=[]
-    get.ref().child('table').once('value',(snap)=>{
+    get.ref().child(`users/${this.props.uid}/table/${this.props.table}/course/`).once('value',(snap)=>{
          snap.forEach((shot)=>{
              console.log(shot.val().Course);
              check.push(shot.val().Course);
@@ -249,7 +249,7 @@ componentWillMount() {
                     <span style={{color:'red'}}>{this.state.error.user}</span>
                   </p>
                   <p className="control">
-                    <input type="submit" value='Save' className="button is-info" />
+                    <input type="submit" value='Search' className="button is-danger" />
                  </p>
                 </form>
                 <table className="table is-narrow">
