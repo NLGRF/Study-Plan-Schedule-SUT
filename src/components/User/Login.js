@@ -35,7 +35,7 @@ SingIn(){
               this.setState({done:true})
             });
 }
-   handleChange=(e)=>{
+handleChange=(e)=>{
         if (!!this.state.error[e.target.name]) {
           let error = Object.assign({}, this.state.error);
           delete error[e.target.name];
