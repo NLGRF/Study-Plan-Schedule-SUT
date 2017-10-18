@@ -56,7 +56,7 @@ handleChange=(e)=>{
         const inVali  = Object.keys(error).length===0
         if(inVali){
           this.SingIn();
-           //this.props.Uid("keng");
+          //this.props.Uid("keng");
           //this.setState({done:true});
         }
 }

@@ -24,6 +24,7 @@ componentDidMount(){
          uid:data.uid,
          done:true,           
      });
+     
     //console.log(data.uid,data.table);
 }
 logOut(){
@@ -83,7 +84,10 @@ Add_Course_onClick(){
                     </div>
                </div>
              </nav>
-             {this.state.view ? MyTable : <div className="container">
+             {this.state.view ? <div className="container" >
+                 <br/>
+                 <Tables uid={this.props.match.params.uid} table={this.props.match.params.table}/>
+             </div> : <div className="container">
                                             <br/>
                                              <Add_input uid={this.state.uid} table={this.state.table} />
                                             </div>}
