@@ -31,7 +31,7 @@ componentDidMount(){
               taskList =(<ul>
                     <h1 className='title is-3'>Course List</h1>
                     {this.state.task.map(task => (
-                      <Render_List key={task.key} task={task} />
+                      <Render_List key={task.key} task={task} uid={this.props.uid} table={this.props.table} />
                     ))}
                     </ul>)
           } else {

@@ -73,7 +73,7 @@ _getWeatherInfo = (id) => {
             Credit
         } = this.state
         let d =this.state.Groups;
-        //console.log(d);
+        console.log(d);
         var size = Object.keys(d).length;
         let G=1;
         if(d!==undefined){
@@ -81,14 +81,15 @@ _getWeatherInfo = (id) => {
             for(let j=0;j<= Object.keys(d[i]).length;j++){ 
                //console.log(`key ${j}`,d[i][j]); 
                //console.log(Object.keys(d[i]).length)
-               if((d[i][j]!==undefined&&j===0)&&Object.keys(d[i]).length===4){ //3 
+               if((d[i][j]!==undefined&&j===0)&&Object.keys(d[i]).length===4){
+                   console.log(d[i][j+2].Time) //3 
                    row.push(<div>
                                <div > 
                                                   <tr className="List_A" >
                                                       <td>Groups: {G}</td>
                                                       <td>{d[i][j].Date}:{d[i][j].Time}=>{d[i][j].Room}</td>
                                                       <td>{d[i][j+1].Date}:{d[i][j+1].Time}=>{d[i][j+1].Room}</td>
-                                                      <td>{d[i][j+2].Date}:{d[i][j+2].Time}=>{d[i][j+2].Room}</td>
+                                                      <td>{d[i][j+2].Date}:{d[i][j].Time}=>{d[i][j+2].Room}</td>
                                                   </tr>
                                </div>
                            </div>
@@ -96,7 +97,7 @@ _getWeatherInfo = (id) => {
             todo.push({
                   Course:id,
                   Name: Name,
-                  Date:`${d[i][j].Date}${d[i][j].Time}${d[i][j].Room}=${d[i][j+1].Date}${d[i][j].Time}${d[i][j+1].Room}=${d[i][j+2].Date}${d[i][j].Time}${d[i][j+2].Room}`.trim(),
+                  Date:`${d[i][j].Date}${d[i][j].Time}${d[i][j].Room}=${d[i][j+1].Date}${d[i][j].Time}${d[i][j+1].Room}=${d[i][j+2].Date}${d[i][j+2].Time}${d[i][j+2].Room}`.trim(),
                   Credit:Credit
              })
                            //console.log(j)
@@ -134,7 +135,7 @@ _getWeatherInfo = (id) => {
                 todo.push({
                     Course:id,
                     Name: Name,
-                    Date:`${d[i][j].Date}${d[i][j].Time}${d[i][j].Room}=${d[i][j+1].Date}${d[i][j].Time}${d[i][j+1].Room}`.trim(),
+                    Date:`${d[i][j].Date}${d[i][j].Time}${d[i][j].Room}=${d[i][j+1].Date}${d[i][j+1].Time}${d[i][j+1].Room}`.trim(),
                     Credit:Credit
                 });
                }
@@ -178,7 +179,8 @@ seletCouse=(G)=>{
     }else if((this.state.check.indexOf(`${this.state.couseID}`) === - 1)){
         this.setState({table:this.state.table.concat(table)})
         if(this.state.couseID!==" "){ 
-           console.log("Save data successful !!!");  
+           console.log("Save data successful !!!"); 
+           table[0]['Group']= G+1;
            ref.child(`users/${this.props.uid}/table/${this.props.table}/course/`).push(table[0]);
            check.push(this.state.couseID.trim());
            this.setState({check:this.state.check.concat(check)});

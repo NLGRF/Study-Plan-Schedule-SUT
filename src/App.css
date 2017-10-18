@@ -65,7 +65,8 @@
   float: left;
   background-color: #ff8080;
   border-style: solid;
-  border-width: 2px;
+  border-width: 1px;
+  border-color:greenyellow;
 }
 .list2 div{
  display: block;

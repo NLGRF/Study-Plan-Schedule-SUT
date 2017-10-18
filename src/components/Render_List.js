@@ -17,18 +17,23 @@ toggleStarred = () => {
   };
 
 deleteTask = () => {
+    
     const { key } = this.props.task;
+    console.log(this.props,key);
     this.setState({class:'is-loading'})
     setTimeout(()=> {
-         tasksRef.child(key).remove().then(()=>{
+         tasksRef.child(`/${this.props.uid}/table/${this.props.table}/course/${key}`).remove().then(()=>{
               this.setState({done:false});
               this.setState({class:''})
          });
     }, 300);
     this.setState({done:true});
   };
+  componentDidMount(){
+      //console.log(this.props);
+  }
   render() {
-    console.log(this.props.task)
+    //console.log(this.props.task)
     const { task } = this.props;
     let delets =(
         <div className={'is-loading'}></div>

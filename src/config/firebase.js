@@ -7,7 +7,7 @@ var config = {
   export const app = firebase.initializeApp(config)
   export const ref = firebase.database().ref()
   export const get = firebase.database();
-  export const tasksRef = ref.child('table');
+  export const tasksRef = ref.child('users');
   export const firebaseAuth = firebase.auth()
   export const facebookProvider = new firebase.auth.FacebookAuthProvider()
   export function auth (email, pw) {

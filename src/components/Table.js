@@ -65,18 +65,22 @@ export default class Tables extends Component {
         ],
         view:false,
         datas:['Mon','Tue','Wed','Thu','Fri','Sat'],
+        tasksLoading:true
 } 
 View_list(){
     this.setState({view:true});
 }
 componentDidMount(){
-    //console.log(this.props.uid)
-    console.log(this.props)
+    ////console.log(this.props.uid)
+    ////console.log(this.props)
+    const {data1} =this.state
+    // console.log(data1[0]['ke']='keg');
+    // console.log(data1[0]);
     const main= this;
     get.ref().child(`users/${this.props.uid}/table/${this.props.table}/course/`).once('value',(snapshot)=>{
         let task=[]
             snapshot.forEach(shot => {
-               console.log(shot.val())
+              // //console.log(shot.val())
                task.push({ ...shot.val()});
             });
                this.setState({ task:this.state.task.concat(task)});
@@ -122,7 +126,7 @@ componentDidMount(){
             }
             
         })
-        console.log(Mo,Tu,Fr,weight)
+        console.log(Mo,Tu,We,Th,Fr,weight)
         this.setState({
             Mo:Mo,Tu:Tu,We:We,Th:Th,Fr:Fr,Sa:Sa,weight:weight
         })
@@ -132,6 +136,8 @@ componentDidMount(){
          this.rowWe();
          this.rowTh();
          this.rowFr();
+    }).then(()=>{
+        this.setState({tasksLoading:false})
     });
 }
 rowMo(){
@@ -146,7 +152,7 @@ rowMo(){
         }
         return comparison;
       }
-    console.log(this.state.Mo.sort(compare));
+    this.state.Mo.sort(compare)
     let rowMo=[];let time1='',time2='';let deff=0;let sum ;let MO=[];let indexcss=0,indextime=0;
     let d=15;
     this.state.Mo.map((d,idx)=>{
@@ -167,62 +173,62 @@ rowMo(){
                 MO=MO.concat(sum)
             }
             indexcss=parseInt(sum)%10;
-            //console.log(time1=='08')
+            ////console.log(time1=='08')
             if(time1=='08'){
-                console.log(1)
+                ////console.log(1)
                 rowMo.push(<div style={{marginLeft:72.16}}><div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div></div>); 
             }else if(time1=='09'){
-                console.log(2)
+               // //console.log(2)
                 rowMo.push(<div style={{marginLeft:72.16*2}}><div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div></div>); 
             }else if(time1=='10'){
-                console.log(2)
+                ////console.log(2)
                 rowMo.push(<div style={{marginLeft:72.16*3}}><div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div></div>); 
             }else if(time1=='11'){
-                console.log(2)
+                ////console.log(2)
                 rowMo.push(<div style={{marginLeft:72.16*4}}><div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div></div>); 
             }
             else if(time1=='13'){
-                console.log(2)
+                //console.log(2)
                 rowMo.push(<div style={{marginLeft:72.16*6}}><div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div></div>); 
             }
             else if(time1=='14'){
-                console.log(2)
+                //console.log(2)
                 rowMo.push(<div style={{marginLeft:72.16*7}}><div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div></div>); 
             }
             else if(time1=='15'){
-                console.log(2)
+                //console.log(2)
                 rowMo.push(<div style={{marginLeft:72.16*8}}><div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div></div>); 
             }
             else if(time1=='16'){
-                console.log(2)
+                //console.log(2)
                 rowMo.push(<div style={{marginLeft:72.16*9}}><div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div></div>); 
             }
             else if(time1=='17'){
-                console.log(2)
+                //console.log(2)
                 rowMo.push(<div style={{marginLeft:72.16*10}}><div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div></div>); 
             }
             else if(time1=='18'){
-                console.log(2)
+                //console.log(2)
                 rowMo.push(<div style={{marginLeft:72.16*11}}><div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div></div>); 
             }
             else if(time1=='19'){
-                console.log(2)
+                //console.log(2)
                 rowMo.push(<div style={{marginLeft:72.16*12}}><div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div></div>); 
             }
             else if(time1=='20'){
-                console.log(2)
+                //console.log(2)
                 rowMo.push(<div style={{marginLeft:72.16*13}}><div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div></div>); 
             }
             else{
-                console.log(3)
+                //console.log(3)
                 rowMo.push(<div style={{marginLeft:72.16*14}}><div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div></div>); 
             }  
             time1='';sum=' '; deff=0; time2='';
     }); 
     rowMo.splice(0,0,<div className='list2'><div>{this.state.datas[0]}</div></div>)
-    //console.log(rowMo.length)
+    ////console.log(rowMo.length)
     this.setState({rowMo:rowMo});   
-    //   console.log(bands.sort(compare));
+    //   //console.log(bands.sort(compare));
 }
 rowTu(){
     function compare(a, b) {
@@ -236,7 +242,7 @@ rowTu(){
         }
         return comparison;
       }
-    console.log(this.state.Tu.sort(compare));
+    this.state.Tu.sort(compare)
     let rowTu=[];let time1='',time2='';let deff=0;let sum ;let MO=[];let indexcss=0,indextime=0;
     let d=15;
     this.state.Tu.map((d,idx)=>{
@@ -257,62 +263,62 @@ rowTu(){
                 MO=MO.concat(sum)
             }
             indexcss=parseInt(sum)%10;
-            //console.log(time1=='08')
+            ////console.log(time1=='08')
             if(time1=='08'){
-                console.log(1)
+                //console.log(1)
                 rowTu.push(<div style={{marginLeft:72.16}}><div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div></div>); 
             }else if(time1=='09'){
-                console.log(2)
+                //console.log(2)
                 rowTu.push(<div style={{marginLeft:72.16*2}}><div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div></div>); 
             }else if(time1=='10'){
-                console.log(2)
+                //console.log(2)
                 rowTu.push(<div style={{marginLeft:72.16*3}}><div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div></div>); 
             }else if(time1=='11'){
-                console.log(2)
+                //console.log(2)
                 rowTu.push(<div style={{marginLeft:72.16*4}}><div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div></div>); 
             }
             else if(time1=='13'){
-                console.log(2)
+                //console.log(2)
                 rowTu.push(<div style={{marginLeft:72.16*6}}><div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div></div>); 
             }
             else if(time1=='14'){
-                console.log(2)
+                //console.log(2)
                 rowTu.push(<div style={{marginLeft:72.16*7}}><div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div></div>); 
             }
             else if(time1=='15'){
-                console.log(2)
+                //console.log(2)
                 rowTu.push(<div style={{marginLeft:72.16*8}}><div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div></div>); 
             }
             else if(time1=='16'){
-                console.log(2)
+                //console.log(2)
                 rowTu.push(<div style={{marginLeft:72.16*9}}><div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div></div>); 
             }
             else if(time1=='17'){
-                console.log(2)
+                //console.log(2)
                 rowTu.push(<div style={{marginLeft:72.16*10}}><div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div></div>); 
             }
             else if(time1=='18'){
-                console.log(2)
+                //console.log(2)
                 rowTu.push(<div style={{marginLeft:72.16*11}}><div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div></div>); 
             }
             else if(time1=='19'){
-                console.log(2)
+                //console.log(2)
                 rowTu.push(<div style={{marginLeft:72.16*12}}><div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div></div>); 
             }
             else if(time1=='20'){
-                console.log(2)
+                //console.log(2)
                 rowTu.push(<div style={{marginLeft:72.16*13}}><div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div></div>); 
             }
             else{
-                console.log(3)
+                //console.log(3)
                 rowTu.push(<div style={{marginLeft:72.16*14}}><div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div></div>); 
             }  
             time1='';sum=' '; deff=0; time2='';
     }); 
     rowTu.splice(0,0,<div className='list2'><div>{this.state.datas[1]}</div></div>)
-    //console.log(rowMo.length)
+    ////console.log(rowMo.length)
     this.setState({rowTu:rowTu});   
-    //   console.log(bands.sort(compare));
+    //   //console.log(bands.sort(compare));
 }
 rowWe(){
     function compare(a, b) {
@@ -326,16 +332,16 @@ rowWe(){
         }
         return comparison;
       }
-    console.log(this.state.We.sort(compare));
+    this.state.We.sort(compare)
     let rowWe=[];let time1='',time2='';let deff=0;let sum ;let MO=[];let indexcss=0,indextime=0;
     let d=15;
     this.state.We.map((d,idx)=>{
         for(let i=0;i<2;i++){
            }
-            for(let i=6;i<8;i++){
+            for(let i=3;i<5;i++){
                 time1+=d.Date[i].trim();
             }
-            for(let i=12;i<14;i++){
+            for(let i=9;i<11;i++){
                 time2+=d.Date[i].trim()
            }
            deff =Math.floor(time2-time1);
@@ -347,62 +353,62 @@ rowWe(){
                 MO=MO.concat(sum)
             }
             indexcss=parseInt(sum)%10;
-            //console.log(time1=='08')
+            //console.log(time1,time2)
             if(time1=='08'){
-                console.log(1)
+                //console.log(1)
                 rowWe.push(<div style={{marginLeft:72.16}}><div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div></div>); 
             }else if(time1=='09'){
-                console.log(2)
+                //console.log(2)
                 rowWe.push(<div style={{marginLeft:72.16*2}}><div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div></div>); 
             }else if(time1=='10'){
-                console.log(2)
+                //console.log(2)
                 rowWe.push(<div style={{marginLeft:72.16*3}}><div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div></div>); 
             }else if(time1=='11'){
-                console.log(2)
+                //console.log(2)
                 rowWe.push(<div style={{marginLeft:72.16*4}}><div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div></div>); 
             }
             else if(time1=='13'){
-                console.log(2)
+                //console.log(2)
                 rowWe.push(<div style={{marginLeft:72.16*6}}><div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div></div>); 
             }
             else if(time1=='14'){
-                console.log(2)
+                //console.log(2)
                 rowWe.push(<div style={{marginLeft:72.16*7}}><div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div></div>); 
             }
             else if(time1=='15'){
-                console.log(2)
+                //console.log(2)
                 rowWe.push(<div style={{marginLeft:72.16*8}}><div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div></div>); 
             }
             else if(time1=='16'){
-                console.log(2)
+                //console.log(2)
                 rowWe.push(<div style={{marginLeft:72.16*9}}><div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div></div>); 
             }
             else if(time1=='17'){
-                console.log(2)
+                //console.log(2)
                 rowWe.push(<div style={{marginLeft:72.16*10}}><div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div></div>); 
             }
             else if(time1=='18'){
-                console.log(2)
+                //console.log(2)
                 rowWe.push(<div style={{marginLeft:72.16*11}}><div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div></div>); 
             }
             else if(time1=='19'){
-                console.log(2)
+                //console.log(2)
                 rowWe.push(<div style={{marginLeft:72.16*12}}><div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div></div>); 
             }
             else if(time1=='20'){
-                console.log(2)
+                //console.log(2)
                 rowWe.push(<div style={{marginLeft:72.16*13}}><div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div></div>); 
             }
             else{
-                console.log(3)
+                //console.log(3)
                 rowWe.push(<div style={{marginLeft:72.16*14}}><div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div></div>); 
             }  
             time1='';sum=' '; deff=0; time2='';
     }); 
     rowWe.splice(0,0,<div className='list2'><div>{this.state.datas[2]}</div></div>)
-    //console.log(rowMo.length)
+    ////console.log(rowMo.length)
     this.setState({rowWe:rowWe});   
-    //   console.log(bands.sort(compare));
+    //   //console.log(bands.sort(compare));
 }
 rowTh(){
     function compare(a, b) {
@@ -416,16 +422,16 @@ rowTh(){
         }
         return comparison;
       }
-    console.log(this.state.Th.sort(compare));
+    this.state.Th.sort(compare)
     let rowTh=[];let time1='',time2='';let deff=0;let sum ;let MO=[];let indexcss=0,indextime=0;
     let d=15;
     this.state.Th.map((d,idx)=>{
         for(let i=0;i<2;i++){
            }
-            for(let i=6;i<8;i++){
+            for(let i=8;i<10;i++){
                 time1+=d.Date[i].trim();
             }
-            for(let i=12;i<14;i++){
+            for(let i=14;i<16;i++){
                 time2+=d.Date[i].trim()
            }
            deff =Math.floor(time2-time1);
@@ -437,62 +443,62 @@ rowTh(){
                 MO=MO.concat(sum)
             }
             indexcss=parseInt(sum)%10;
-            //console.log(time1=='08')
+            console.log(time1,time2)
             if(time1=='08'){
-                console.log(1)
+                //console.log(1)
                 rowTh.push(<div style={{marginLeft:72.16}}><div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div></div>); 
             }else if(time1=='09'){
-                console.log(2)
+                //console.log(2)
                 rowTh.push(<div style={{marginLeft:72.16*2}}><div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div></div>); 
             }else if(time1=='10'){
-                console.log(2)
+                //console.log(2)
                 rowTh.push(<div style={{marginLeft:72.16*3}}><div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div></div>); 
             }else if(time1=='11'){
-                console.log(2)
+                //console.log(2)
                 rowTh.push(<div style={{marginLeft:72.16*4}}><div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div></div>); 
             }
             else if(time1=='13'){
-                console.log(2)
+                //console.log(2)
                 rowTh.push(<div style={{marginLeft:72.16*6}}><div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div></div>); 
             }
             else if(time1=='14'){
-                console.log(2)
+                //console.log(2)
                 rowTh.push(<div style={{marginLeft:72.16*7}}><div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div></div>); 
             }
             else if(time1=='15'){
-                console.log(2)
+                //console.log(2)
                 rowTh.push(<div style={{marginLeft:72.16*8}}><div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div></div>); 
             }
             else if(time1=='16'){
-                console.log(2)
+                //console.log(2)
                 rowTh.push(<div style={{marginLeft:72.16*9}}><div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div></div>); 
             }
             else if(time1=='17'){
-                console.log(2)
+                //console.log(2)
                 rowTh.push(<div style={{marginLeft:72.16*10}}><div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div></div>); 
             }
             else if(time1=='18'){
-                console.log(2)
+                //console.log(2)
                 rowTh.push(<div style={{marginLeft:72.16*11}}><div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div></div>); 
             }
             else if(time1=='19'){
-                console.log(2)
+                //console.log(2)
                 rowTh.push(<div style={{marginLeft:72.16*12}}><div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div></div>); 
             }
             else if(time1=='20'){
-                console.log(2)
+                //console.log(2)
                 rowTh.push(<div style={{marginLeft:72.16*13}}><div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div></div>); 
             }
             else{
-                console.log(3)
+                //console.log(3)
                 rowTh.push(<div style={{marginLeft:72.16*14}}><div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div></div>); 
             }  
             time1='';sum=' '; deff=0; time2='';
     }); 
     rowTh.splice(0,0,<div className='list2'><div>{this.state.datas[3]}</div></div>)
-    //console.log(rowMo.length)
+    ////console.log(rowMo.length)
     this.setState({rowTh:rowTh});   
-    //   console.log(bands.sort(compare));
+    //   //console.log(bands.sort(compare));
 }
 rowFr(){
     function compare(a, b) {
@@ -506,7 +512,7 @@ rowFr(){
         }
         return comparison;
       }
-   console.log(this.state.Fr.sort(compare));
+   this.state.Fr.sort(compare)
     let rowFr=[];let time1='',time2='';let deff=0;let sum ;let MO=[];let indexcss=0,indextime=0;
     let d=15;
     this.state.Fr.map((d,idx)=>{
@@ -527,80 +533,85 @@ rowFr(){
                 MO=MO.concat(sum)
             }
             indexcss=parseInt(sum)%10;
-            //console.log(time1=='08')
-            console.log('hu',time1,indexcss)
+            ////console.log(time1=='08')
+            //console.log('hu',time1,indexcss)
             if(time1=='08'){
-                console.log(1)
+                //console.log(1)
                 rowFr.push(<div style={{marginLeft:72.16}}><div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div></div>); 
             }else if(time1=='09'){
-                console.log(2)
+                //console.log(2)
                 rowFr.push(<div style={{marginLeft:72.16*2}}><div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div></div>); 
             }else if(time1=='10'){
-                console.log(2)
+                //console.log(2)
                 rowFr.push(<div style={{marginLeft:72.16*3}}><div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div></div>); 
             }else if(time1=='11'){
-                console.log(2)
+                //console.log(2)
                 rowFr.push(<div style={{marginLeft:72.16*4}}><div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div></div>); 
             }
             else if(time1=='13'){
-                console.log(2)
+                //console.log(2)
                 rowFr.push(<div style={{marginLeft:72.16*6}}><div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div></div>); 
             }
             else if(time1=='14'){
-                console.log(2)
+                //console.log(2)
                 rowFr.push(<div style={{marginLeft:72.16*7}}><div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div></div>); 
             }
             else if(time1=='15'){
-                console.log(2)
+                //console.log(2)
                 rowFr.push(<div style={{marginLeft:72.16*8}}><div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div></div>); 
             }
             else if(time1=='16'){
-                console.log(2)
+                //console.log(2)
                 rowFr.push(<div style={{marginLeft:72.16*9}}><div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div></div>); 
             }
             else if(time1=='17'){
-                console.log(2)
+                //console.log(2)
                 rowFr.push(<div style={{marginLeft:72.16*10}}><div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div></div>); 
             }
             else if(time1=='18'){
-                console.log(2)
+                //console.log(2)
                 rowFr.push(<div style={{marginLeft:72.16*11}}><div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div></div>); 
             }
             else if(time1=='19'){
-                console.log(2)
+                //console.log(2)
                 rowFr.push(<div style={{marginLeft:72.16*12}}><div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div></div>); 
             }
             else if(time1=='20'){
-                console.log(2)
+                //console.log(2)
                 rowFr.push(<div style={{marginLeft:72.16*13}}><div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div></div>); 
             }
             else{
-                console.log(3)
+                //console.log(3)
                 rowFr.push(<div style={{marginLeft:72.16*14}}><div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div></div>); 
             }  
             time1='';sum=' '; deff=0; time2='';
     }); 
     rowFr.splice(0,0,<div className='list2'><div>{this.state.datas[4]}</div></div>)
-    //console.log(rowMo.length)
+    ////console.log(rowMo.length)
     this.setState({rowFr:rowFr});   
-    //   console.log(bands.sort(compare));
+    //   //console.log(bands.sort(compare));
 }
 render() {
-       const { task,rowMo,rowTu ,rowWe,rowTh,rowFr,Mo} = this.state
-       console.log(task)
-       //console.log(Mo)
-        return (
-            <div className="MyTable">
-                <HardTable/>
-                <div className="headTable">{rowMo}</div>
-                <div className="headTable">{rowTu}</div>
-                <div className="headTable">{rowWe}</div>
-                <div className="headTable">{rowTh}</div>
-                <div className="headTable">{rowFr}</div>
-                <br/>
-                <a class="button is-primary is-outlined" onClick={this.View_list.bind(this)}>List Course</a>
-                {this.state.view ? <Add_List uid={this.props.uid} table={this.props.table} />:''}
-            </div>
-        )
+       const { task,rowMo,rowTu ,rowWe,rowTh,rowFr,Mo,tasksLoading} = this.state
+        let taskList;
+        if (tasksLoading) {
+            taskList = <div className="title is-4">Loading...</div>;
+          } else if (rowMo.length||rowTu.length||rowWe.length||rowTh.length||rowFr.length) {
+              taskList =(<div className="MyTable">
+                    <HardTable/>
+                      <div className="headTable">{rowMo}</div>
+                       <div className="headTable">{rowTu}</div>
+                       <div className="headTable">{rowWe}</div>
+                       <div className="headTable">{rowTh}</div>
+                       <div className="headTable">{rowFr}</div>
+                       <br/>
+                       <h1 className="title is-5">จำนวนหน่วยกิต: {this.state.weight}</h1>
+                       <a class="button is-primary is-outlined" onClick={this.View_list.bind(this)}>List Course</a>
+                       {this.state.view ? <Add_List uid={this.props.uid} table={this.props.table} />:''}
+                   </div>)
+          } else {
+            taskList = <div className="title is-1">No Course</div>;
+          }
+          return taskList;
     }
 }
