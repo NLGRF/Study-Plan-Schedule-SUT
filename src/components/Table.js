@@ -58,6 +58,7 @@ export default class Tables extends Component {
           rowWe:[],
           rowTh:[],
           rowFr:[],
+          rowSa:[],
           data1:[
                  {Date: "จันทร์16:00-18:00B3103",Name: "INFORMATION SYSTEM "},
                  {Date: "จันทร์08:00-10:00B1211",Name: "COMPUTER STATISTICS"},
@@ -126,7 +127,7 @@ componentDidMount(){
             }
             
         })
-        console.log(Mo,Tu,We,Th,Fr,weight)
+        //console.log(Mo,Tu,We,Th,Fr,weight)
         this.setState({
             Mo:Mo,Tu:Tu,We:We,Th:Th,Fr:Fr,Sa:Sa,weight:weight
         })
@@ -136,6 +137,7 @@ componentDidMount(){
          this.rowWe();
          this.rowTh();
          this.rowFr();
+         this.rowSa();
     }).then(()=>{
         this.setState({tasksLoading:false})
     });
@@ -443,7 +445,7 @@ rowTh(){
                 MO=MO.concat(sum)
             }
             indexcss=parseInt(sum)%10;
-            console.log(time1,time2)
+           // console.log(time1,time2)
             if(time1=='08'){
                 //console.log(1)
                 rowTh.push(<div style={{marginLeft:72.16}}><div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div></div>); 
@@ -591,8 +593,99 @@ rowFr(){
     this.setState({rowFr:rowFr});   
     //   //console.log(bands.sort(compare));
 }
+rowSa(){
+    function compare(a, b) {
+        const genreA = a.Date;
+        const genreB = b.Date;
+        let comparison = 0;
+        if (genreA > genreB) {
+          comparison = 1;
+        } else if (genreA < genreB) {
+          comparison = -1;
+        }
+        return comparison;
+      }
+   this.state.Sa.sort(compare)
+    let rowSa=[];let time1='',time2='';let deff=0;let sum ;let MO=[];let indexcss=0,indextime=0;
+    let d=15;
+    this.state.Sa.map((d,idx)=>{
+        for(let i=0;i<2;i++){
+           }
+            for(let i=5;i<7;i++){
+                time1+=d.Date[i].trim();
+            }
+            for(let i=11;i<13;i++){
+                time2+=d.Date[i].trim()
+           }
+           deff =Math.floor(time2-time1);
+           sum=time1+deff;
+           if(time1<10){
+                MO=MO.concat(sum.substr(1));
+                sum=sum.substr(1);
+            }else{
+                MO=MO.concat(sum)
+            }
+            indexcss=parseInt(sum)%10;
+            ////console.log(time1=='08')
+            //console.log('hu',time1,indexcss)
+            if(time1=='08'){
+                //console.log(1)
+                rowSa.push(<div style={{marginLeft:72.16}}><div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            }else if(time1=='09'){
+                //console.log(2)
+                rowSa.push(<div style={{marginLeft:72.16*2}}><div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            }else if(time1=='10'){
+                //console.log(2)
+                rowSa.push(<div style={{marginLeft:72.16*3}}><div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            }else if(time1=='11'){
+                //console.log(2)
+                rowSa.push(<div style={{marginLeft:72.16*4}}><div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            }
+            else if(time1=='13'){
+                //console.log(2)
+                rowSa.push(<div style={{marginLeft:72.16*6}}><div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            }
+            else if(time1=='14'){
+                //console.log(2)
+                rowSa.push(<div style={{marginLeft:72.16*7}}><div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            }
+            else if(time1=='15'){
+                //console.log(2)
+                rowSa.push(<div style={{marginLeft:72.16*8}}><div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            }
+            else if(time1=='16'){
+                //console.log(2)
+                rowSa.push(<div style={{marginLeft:72.16*9}}><div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            }
+            else if(time1=='17'){
+                //console.log(2)
+                rowSa.push(<div style={{marginLeft:72.16*10}}><div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            }
+            else if(time1=='18'){
+                //console.log(2)
+                rowSa.push(<div style={{marginLeft:72.16*11}}><div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            }
+            else if(time1=='19'){
+                //console.log(2)
+                rowSa.push(<div style={{marginLeft:72.16*12}}><div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            }
+            else if(time1=='20'){
+                //console.log(2)
+                rowSa.push(<div style={{marginLeft:72.16*13}}><div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            }
+            else{
+                //console.log(3)
+                rowSa.push(<div style={{marginLeft:72.16*14}}><div style={this.state.my[indexcss-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            }  
+            time1='';sum=' '; deff=0; time2='';
+    }); 
+    rowSa.splice(0,0,<div className='list2'><div>{this.state.datas[5]}</div></div>)
+    ////console.log(rowMo.length)
+    this.setState({rowSa:rowSa});   
+    //   //console.log(bands.sort(compare));
+}
 render() {
-       const { task,rowMo,rowTu ,rowWe,rowTh,rowFr,Mo,tasksLoading} = this.state
+       const { task,rowMo,rowTu ,rowWe,rowTh,rowFr,rowSa,Mo,tasksLoading} = this.state
         let taskList;
         if (tasksLoading) {
             taskList = <div className="title is-4">Loading...</div>;
@@ -604,6 +697,7 @@ render() {
                        <div className="headTable">{rowWe}</div>
                        <div className="headTable">{rowTh}</div>
                        <div className="headTable">{rowFr}</div>
+                       <div className="headTable">{rowSa}</div>
                        <br/>
                        <h1 className="title is-5">จำนวนหน่วยกิต: {this.state.weight}</h1>
                        <a class="button is-primary is-outlined" onClick={this.View_list.bind(this)}>List Course</a>

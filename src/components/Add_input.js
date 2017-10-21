@@ -1,6 +1,18 @@
 import React, { Component } from 'react'
 import classnames from 'classnames'
 import {ref,get} from '../config/firebase'
+import Modal from 'react-modal';
+
+const customStyles = {
+  content : {
+    top                   : '30%',
+    left                  : '50%',
+    right                 : 'auto',
+    bottom                : 'auto',
+    marginRight           : '-50%',
+    transform             : 'translate(-50%, -50%)'
+  }
+};
 export default class Add_input extends Component {
     constructor(){
         super();
@@ -15,9 +27,13 @@ export default class Add_input extends Component {
             row:[],
             table:[],
             check:[],
+            Dates:'',
+            noif:'',
+            modalIsOpen: false
         }
         this.handleChange =this.handleChange.bind(this);
         this.handleSubmit =this.handleSubmit.bind(this);
+        this.closeModal =this.closeModal.bind(this);
 }
 handleChange(e){
     this.setState({todo:[],Name:'',Credit:''});
@@ -68,9 +84,10 @@ _getWeatherInfo = (id) => {
       });
       let row=[]
       let todo=[]
+      let Dates='';
       const {
             Name,
-            Credit
+            Credit,
         } = this.state
         let d =this.state.Groups;
         console.log(d);
@@ -100,7 +117,7 @@ _getWeatherInfo = (id) => {
                   Date:`${d[i][j].Date}${d[i][j].Time}${d[i][j].Room}=${d[i][j+1].Date}${d[i][j].Time}${d[i][j+1].Room}=${d[i][j+2].Date}${d[i][j+2].Time}${d[i][j+2].Room}`.trim(),
                   Credit:Credit
              })
-                           //console.log(j)
+                Dates=`${d[i][j].Date}${d[i][j].Time}${d[i][j].Room}=${d[i][j+1].Date}${d[i][j].Time}${d[i][j+1].Room}=${d[i][j+2].Date}${d[i][j+2].Time}${d[i][j+2].Room}`.trim()      //console.log(j)
                 }
                else if((d[i][j]!==undefined&&j===0)&&Object.keys(d[i]).length===2){  //1
                   row.push(<div>
@@ -118,6 +135,7 @@ _getWeatherInfo = (id) => {
                               Date:`${d[i][j].Date}${d[i][j].Time}${d[i][j].Room}`.trim(),
                               Credit:Credit
                           })
+                          Dates=`${d[i][j].Date}${d[i][j].Time}${d[i][j].Room}`.trim()
                           //console.log(j)
                }
                else if((d[i][j]!==undefined&&j===0)&&Object.keys(d[i]).length===3){//2
@@ -138,11 +156,12 @@ _getWeatherInfo = (id) => {
                     Date:`${d[i][j].Date}${d[i][j].Time}${d[i][j].Room}=${d[i][j+1].Date}${d[i][j+1].Time}${d[i][j+1].Room}`.trim(),
                     Credit:Credit
                 });
+                Dates=`${d[i][j].Date}${d[i][j].Time}${d[i][j].Room}=${d[i][j+1].Date}${d[i][j+1].Time}${d[i][j+1].Room}`.trim()
                }
             }
             G++;
         }
-        this.setState({row:row,todo:todo});
+        this.setState({row:row,todo:todo,Dates:Dates});
       }
      todo=[];
   }).catch( function() {
@@ -171,15 +190,19 @@ seletCouse=(G)=>{
     let table=[]
     let check=[];
     const that =this;
-    let { todo} = this.state;
+    let { todo,Dates,noif} = this.state;
     table.push(todo[G]);
-    console.log(table);
-    if ((this.state.check.indexOf(`${this.state.couseID}`) > -1)){
+    console.log(table[0],Dates);
+    if ((this.state.check.indexOf(`${Dates}`) > -1)){
+        this.openModal();
         console.log("มีข้อมูลอยู่เเล้ว"); 
-    }else if((this.state.check.indexOf(`${this.state.couseID}`) === - 1)){
+        this.setState({noif:'มีข้อมูลอยู่เเล้ว'})
+    }else if((this.state.check.indexOf(`${Dates}`) === - 1)){
         this.setState({table:this.state.table.concat(table)})
         if(this.state.couseID!==" "){ 
            console.log("Save data successful !!!"); 
+           this.setState({noif:'Save data successful !!!'})
+           this.openModal();
            table[0]['Group']= G+1;
            ref.child(`users/${this.props.uid}/table/${this.props.table}/course/`).push(table[0]);
            check.push(this.state.couseID.trim());
@@ -195,9 +218,9 @@ componentDidMount() {
     let check=[]
     get.ref().child(`users/${this.props.uid}/table/${this.props.table}/course/`).once('value',(snap)=>{
          snap.forEach((shot)=>{
-             console.log(shot.val().Course);
-             check.push(shot.val().Course);
-         })
+             console.log(shot.val().Date);
+             check.push(shot.val().Date);
+         });
     })
     this.setState({check})
 }
@@ -205,6 +228,12 @@ componentWillMount() {
     this.seletCouse();
     this._getWeatherInfo();
   };
+  openModal() {
+    this.setState({modalIsOpen: true});
+  }
+  closeModal() {
+    this.setState({modalIsOpen: false});
+  }
     render() {   
         //console.log(this.state.check);
         //console.log(this.state.table);
@@ -260,6 +289,16 @@ componentWillMount() {
                     {data}
                 </tbody>
               </table>
+              <Modal
+                    isOpen={this.state.modalIsOpen}
+                    onAfterOpen={this.afterOpenModal}
+                    onRequestClose={this.closeModal}
+                    style={customStyles}
+                    contentLabel="Example Modal"
+            >
+                <h1 className="title is-5">{this.state.noif}</h1>
+                <div style={{textAlign:'center'}}><button onClick={this.closeModal} className='button is-danger'>Close</button></div>
+          </Modal>
             </div>
         )
     }

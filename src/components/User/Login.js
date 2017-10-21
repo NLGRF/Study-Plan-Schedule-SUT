@@ -79,7 +79,7 @@ authFacebook(){
         <div className='login'>
             <form onSubmit={this.handleSubmit}>
             <h1 className="title is-3">Welcome</h1>
-         <p className="subtitle is-5">Register Member SUT</p>
+         <p className="subtitle is-5">Study Plan Schedule SUT</p>
         <div className={classnames('field App-input', { error: !!this.state.error.user})}>
           <div className="control">
             <input type="email"
@@ -103,10 +103,10 @@ authFacebook(){
           </div>
           <br/>
         </div>
-           <input type="submit" className='button is-primary App-input-btn' value='Login' style={{width:150}}/>
+           <input type="submit" className='button is-primary App-input-btn' value='Login' style={{width:200,fontWeight:'bold'}}/>
       </form>
         <p>
-          <a class="button is-info" style={{width:150,marginTop:10}} onClick={this.authFacebook.bind(this)}>Facebook</a>
+          <a class="button is-info" style={{width:200,marginTop:10}} onClick={this.authFacebook.bind(this)}><b>Login With Facebook</b></a>
         </p>
         <u className='subtitle is-5' style={{fontSize:15}}><Link to ='/signup'>Create account</Link></u>
         </div>

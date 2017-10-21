@@ -24,7 +24,6 @@ componentDidMount(){
          uid:data.uid,
          done:true,           
      });
-     
     //console.log(data.uid,data.table);
 }
 logOut(){
