@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import {get} from '../config/firebase'
 import HardTable from './HardTable.js'
 import Add_List from './Add_List'
+import Render_list from './Render_List'
 export default class Tables extends Component {
     
     state={
@@ -66,19 +67,31 @@ export default class Tables extends Component {
         ],
         view:false,
         datas:['Mon','Tue','Wed','Thu','Fri','Sat'],
-        tasksLoading:true
+        tasksLoading:true,
+        uid:''
 } 
 View_list(){
     this.setState({view:true});
+    
+    //this.setState({tasksLoading:true})
 }
-componentDidMount(){
+componentDidMount() {
+    this.rederData();
+}
+rederData(){
+    const data = this.props
+    console.log(data)
     ////console.log(this.props.uid)
     ////console.log(this.props)
+    let key ='AIzaSyDCi-3V7lRDIsluMZ9fIHVt4oRDKQnxsfU'
+    let userID
+   // let user = firebase.auth().currentUser; 
+    userID =  JSON.parse(localStorage.getItem(`firebase:authUser:${key}:[DEFAULT]`))
+    this.setState({uid:userID.uid})
+    //console.log(userID.uid)
     const {data1} =this.state
-    // console.log(data1[0]['ke']='keg');
-    // console.log(data1[0]);
     const main= this;
-    get.ref().child(`users/${this.props.uid}/table/${this.props.table}/course/`).once('value',(snapshot)=>{
+    get.ref().child(`users/${userID.uid}/table/${this.props.table}/course/`).once('value',(snapshot)=>{
         let task=[]
             snapshot.forEach(shot => {
               // //console.log(shot.val())

@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
 import {tasksRef} from '../config/firebase'
+import Tables from './Table'
 export default class Render_list extends Component {
     state={
         done:true,
         delets:false,
-        class:''
+        class:'',
+        uid:''
     }
 toggleChecked = () => {
     const { key, checked } = this.props.task;
@@ -17,19 +19,24 @@ toggleStarred = () => {
   };
 
 deleteTask = () => {
-    
     const { key } = this.props.task;
-    console.log(this.props,key);
+  // console.log(this.props,key);
     this.setState({class:'is-loading'})
     setTimeout(()=> {
-         tasksRef.child(`/${this.props.uid}/table/${this.props.table}/course/${key}`).remove().then(()=>{
+         tasksRef.child(`/${this.state.uid}/table/${this.props.table}/course/${key}`).remove().then(()=>{
               this.setState({done:false});
               this.setState({class:''})
          });
     }, 300);
     this.setState({done:true});
+    return <Tables up="je]"/>
   };
   componentDidMount(){
+    let key ='AIzaSyDCi-3V7lRDIsluMZ9fIHVt4oRDKQnxsfU'
+    let userID
+    //let user = firebase.auth().currentUser; 
+    userID =  JSON.parse(localStorage.getItem(`firebase:authUser:${key}:[DEFAULT]`))
+    this.setState({uid:userID.uid})
       //console.log(this.props);
   }
   render() {

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Tables from './Table'
 import * as firebase from 'firebase';
 import Add_input from './Add_input'
+import {get} from '../config/firebase'
 export default class Viwe_Table extends Component {
 constructor(){
     super()
@@ -24,7 +25,7 @@ componentDidMount(){
          uid:data.uid,
          done:true,           
      });
-    //console.log(data.uid,data.table);
+    
 }
 logOut(){
     const main =this;
@@ -54,14 +55,14 @@ Add_Course_onClick(){
                     <div className="navbar-item">
                       <div className="field is-grouped">
                           <p className="control">
-                              <a className="button is-warning" onClick={this.MyTable_onClick} ><b>My Table</b></a>
+                              <a className="button is-warning" onClick={this.MyTable_onClick} ><b><i className="fa fa-table" aria-hidden="true"></i>&nbsp;My Table</b></a>
                           </p>
                       </div>
                     </div>
                     <div className="navbar-item">
                       <div className="field is-grouped">
                           <p className="control">
-                              <a className="button is-info"  onClick={this.Add_Course_onClick}><b>+</b>  Add Course</a>
+                              <a className="button is-info"  onClick={this.Add_Course_onClick}><i className="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;Add Course</a>
                           </p>
                       </div>
                     </div>

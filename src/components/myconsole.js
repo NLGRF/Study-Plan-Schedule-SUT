@@ -118,9 +118,12 @@ handleSubmit(event) {
         this.setState({todo:this.state.todo.concat(todo)});
     }
 }
+ShareTable(name){
+    this.props.history.push(`/share/${this.state.uid}/${name}`);
+}
 ViweTabe(name){
-    console.log(name)
-    this.props.history.push(`/user/view/${this.state.uid}/${name}`);
+   // console.log(name)
+    this.props.history.push(`/user/view/tables/${name}`);
 }
 Add_Table(){
      this.setState({popup:true});
@@ -135,6 +138,7 @@ Add_Table(){
          taskList=(
              <div>
                   {todo.map((d,idx)=>{
+                    let Share = this.ShareTable.bind(this,(d.name));
                     let boundClick = this.deleteTable.bind(this, (d.name));
                     let views = this.ViweTabe.bind(this,(d.name));
                     return(   <div className="list-bar container" >
@@ -156,8 +160,9 @@ Add_Table(){
                       </div>
                     </div>
                     <footer class="card-footer">
-                      <a class="card-footer-item" onClick={views}><b>Viwe</b></a>
-                      <a class="card-footer-item" onClick={boundClick} ><b>Delete</b></a>
+                      <a class="card-footer-item" onClick={views}><i class="fa fa-cogs" aria-hidden="true" ></i><b>&nbsp;Viwe</b></a>
+                      <a class="card-footer-item"onClick={Share} ><i className="fa fa-reply"></i><b>&nbsp;Share</b></a>
+                      <a class="card-footer-item" onClick={boundClick} ><i class="fa fa-times" aria-hidden="true"></i><b>&nbsp;Delete</b></a>
                     </footer>
                   </div>
                        </div>)
@@ -215,7 +220,7 @@ Add_Table(){
                     <div className="navbar-item">
                       <div className="field is-grouped">
                           <p className="control">
-                              <a className="button is-info" onClick={this.Add_Table}><b>+</b>  Add Table</a>
+                              <a className="button is-info" onClick={this.Add_Table}><i className="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;Add Table</a>
                           </p>
                       </div>
                     </div>

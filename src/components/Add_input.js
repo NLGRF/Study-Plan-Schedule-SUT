@@ -29,6 +29,7 @@ export default class Add_input extends Component {
             check:[],
             Dates:'',
             noif:'',
+            uid:'',
             modalIsOpen: false
         }
         this.handleChange =this.handleChange.bind(this);
@@ -204,7 +205,7 @@ seletCouse=(G)=>{
            this.setState({noif:'Save data successful !!!'})
            this.openModal();
            table[0]['Group']= G+1;
-           ref.child(`users/${this.props.uid}/table/${this.props.table}/course/`).push(table[0]);
+           ref.child(`users/${this.state.uid}/table/${this.props.table}/course/`).push(table[0]);
            check.push(this.state.couseID.trim());
            this.setState({check:this.state.check.concat(check)});
             }
@@ -215,8 +216,14 @@ seletCouse=(G)=>{
     },300);
 }
 componentDidMount() {
+    let key ='AIzaSyDCi-3V7lRDIsluMZ9fIHVt4oRDKQnxsfU'
+    let userID
+   // let user = firebase.auth().currentUser; 
+   
+    userID =  JSON.parse(localStorage.getItem(`firebase:authUser:${key}:[DEFAULT]`))
+    this.setState({uid:userID.uid})
     let check=[]
-    get.ref().child(`users/${this.props.uid}/table/${this.props.table}/course/`).once('value',(snap)=>{
+    get.ref().child(`users/${userID.uid}/table/${this.props.table}/course/`).once('value',(snap)=>{
          snap.forEach((shot)=>{
              console.log(shot.val().Date);
              check.push(shot.val().Date);
