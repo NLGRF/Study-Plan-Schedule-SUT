@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import classnames from 'classnames'
 import {ref,get} from '../config/firebase'
 import Modal from 'react-modal';
-
 const customStyles = {
   content : {
     top                   : '30%',
@@ -86,12 +85,13 @@ _getWeatherInfo = (id) => {
       let row=[]
       let todo=[]
       let Dates='';
+      let times=[]
       const {
             Name,
             Credit,
         } = this.state
         let d =this.state.Groups;
-        console.log(d);
+        console.log(d['1']);
         var size = Object.keys(d).length;
         let G=1;
         if(d!==undefined){
@@ -111,11 +111,14 @@ _getWeatherInfo = (id) => {
                                                   </tr>
                                </div>
                            </div>
-                           );
+                       );
+             times[0]=`${d[i][j].Date}${d[i][j].Time}${d[i][j].Room}`
+             times[1]=`${d[i][j+1].Date}${d[i][j+1].Time}${d[i][j+1].Room}`;
+             times[2]=`${d[i][j+2].Date}${d[i][j+2].Time}${d[i][j+2].Room}`
             todo.push({
                   Course:id,
                   Name: Name,
-                  Date:`${d[i][j].Date}${d[i][j].Time}${d[i][j].Room}=${d[i][j+1].Date}${d[i][j].Time}${d[i][j+1].Room}=${d[i][j+2].Date}${d[i][j+2].Time}${d[i][j+2].Room}`.trim(),
+                  Date:times,
                   Credit:Credit
              })
                 Dates=`${d[i][j].Date}${d[i][j].Time}${d[i][j].Room}=${d[i][j+1].Date}${d[i][j].Time}${d[i][j+1].Room}=${d[i][j+2].Date}${d[i][j+2].Time}${d[i][j+2].Room}`.trim()      //console.log(j)
@@ -130,10 +133,11 @@ _getWeatherInfo = (id) => {
                                   </div>
                              </div>
                           );
+                          times[0]=`${d[i][j].Date}${d[i][j].Time}${d[i][j].Room}`
                           todo.push({
                               Course:id,
                               Name: Name,
-                              Date:`${d[i][j].Date}${d[i][j].Time}${d[i][j].Room}`.trim(),
+                              Date:times,
                               Credit:Credit
                           })
                           Dates=`${d[i][j].Date}${d[i][j].Time}${d[i][j].Room}`.trim()
@@ -151,10 +155,12 @@ _getWeatherInfo = (id) => {
                            </div>
               );
               //console.log(j)
+              times[0]=`${d[i][j].Date}${d[i][j].Time}${d[i][j].Room}`
+              times[1]=`${d[i][j+1].Date}${d[i][j+1].Time}${d[i][j+1].Room}`;
                 todo.push({
                     Course:id,
                     Name: Name,
-                    Date:`${d[i][j].Date}${d[i][j].Time}${d[i][j].Room}=${d[i][j+1].Date}${d[i][j+1].Time}${d[i][j+1].Room}`.trim(),
+                    Date:times,
                     Credit:Credit
                 });
                 Dates=`${d[i][j].Date}${d[i][j].Time}${d[i][j].Room}=${d[i][j+1].Date}${d[i][j+1].Time}${d[i][j+1].Room}`.trim()
@@ -191,31 +197,24 @@ seletCouse=(G)=>{
     let table=[]
     let check=[];
     const that =this;
-    let { todo,Dates,noif} = this.state;
-    table.push(todo[G]);
-    console.log(table[0],Dates);
-    if ((this.state.check.indexOf(`${Dates}`) > -1)){
-        this.openModal();
-        console.log("มีข้อมูลอยู่เเล้ว"); 
-        this.setState({noif:'มีข้อมูลอยู่เเล้ว'})
-    }else if((this.state.check.indexOf(`${Dates}`) === - 1)){
-        this.setState({table:this.state.table.concat(table)})
-        if(this.state.couseID!==" "){ 
-           console.log("Save data successful !!!"); 
-           this.setState({noif:'Save data successful !!!'})
-           this.openModal();
-           table[0]['Group']= G+1;
-           ref.child(`users/${this.state.uid}/table/${this.props.table}/course/`).push(table[0]);
-           check.push(this.state.couseID.trim());
-           this.setState({check:this.state.check.concat(check)});
-            }
-    } 
+    let { todo,Dates,noif,Groups} = this.state;
+    let Detail = Groups[G+1]['Detail']
+    let time = delete  Groups[G+1]['Detail']
+    console.log(Groups[G+1]);
+    ref.child(`users/${this.state.uid}/table/${this.props.table}/course/${this.state.couseID}/`).set({
+        name:this.state.Name,
+        credit:this.state.Credit,
+        groups:G+1,
+        time: Groups[G+1],
+        detail:Detail
+    });
     console.log(this.state.check);
     setTimeout(()=>{
          that.setState({todo:[],Name:'',Credit:'',couseID:''})
     },300);
 }
 componentDidMount() {
+    const data = this.props
     let key ='AIzaSyDCi-3V7lRDIsluMZ9fIHVt4oRDKQnxsfU'
     let userID
    // let user = firebase.auth().currentUser; 
@@ -223,7 +222,7 @@ componentDidMount() {
     userID =  JSON.parse(localStorage.getItem(`firebase:authUser:${key}:[DEFAULT]`))
     this.setState({uid:userID.uid})
     let check=[]
-    get.ref().child(`users/${userID.uid}/table/${this.props.table}/course/`).once('value',(snap)=>{
+    get.ref().child(`users/${userID.uid}/table/${data.table}/course/`).once('value',(snap)=>{
          snap.forEach((shot)=>{
              console.log(shot.val().Date);
              check.push(shot.val().Date);
@@ -232,7 +231,7 @@ componentDidMount() {
     this.setState({check})
 }
 componentWillMount() { 
-    this.seletCouse();
+   // this.seletCouse();
     this._getWeatherInfo();
   };
   openModal() {
@@ -257,7 +256,7 @@ componentWillMount() {
                        let boundClick = this.seletCouse.bind(this, (idx));
                         return <div className="field is-grouped" key={idx} >
                             <p className="control is-expanded">
-                                 <div><b>Group</b> {idx+1} {d.Date}</div>  
+                                 <div><b>Group</b> {idx+1} &nbsp;{d.Date+" "}</div>  
                             </p>
                                 <p className="control">
                                 <a className="button is-danger" onClick={boundClick} >

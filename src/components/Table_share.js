@@ -100,7 +100,7 @@ rederData(){
     const main= this;
     console.log(userID.uid,userID)
     let weight=0;
-    get.ref().child(`users/${userID.uid}/table/${data.table}/course/`).once('value',(snapshot)=>{
+    get.ref().child(`users/${data.data.uid}/table/${data.data.table}/course/`).once('value',(snapshot)=>{
         let task=[]
             snapshot.forEach(shot => {
               console.log(shot.val())
@@ -699,7 +699,6 @@ rowSu(){
     this.setState({rowSu:rowSu});   
     //   //console.log(bands.sort(compare));
 }
-
 render() {
        const { task,rowMo,rowTu ,rowWe,rowTh,rowFr,rowSa,rowSu,Mo,tasksLoading} = this.state
         let taskList;
@@ -718,7 +717,7 @@ render() {
                        <br/>
                        <h1 className="title is-5">จำนวนหน่วยกิต: {this.state.weight}</h1>
                        <a class="button is-primary is-outlined" onClick={this.View_list.bind(this)}>List Course</a>
-                       {this.state.view ? <Add_List uid={this.props.uid} table={this.props.table} />:''}
+                       {this.state.view ? <Add_List uid={this.props.data.uid} table={this.props.data.table} />:''}
                    </div>)
           } else {
             taskList = <div className="title is-1">No Course</div>;

@@ -4,7 +4,7 @@ export default class HaedTable extends Component {
         return (
             <div className='T'>
                 <div className='headTable'>
-                    <div className='list2'><div></div></div>
+                <div className='list2'><div style={{ fontSize: 12, marginTop: 10 }}><b>Date/Time</b></div></div>
                     <div className='list2'><div style={{ fontSize: 12, marginTop: 10 }}><b>8.00-9.00</b></div></div>
                     <div className='list2'><div style={{ fontSize: 12, marginTop: 10 }}><b>9.00-10.00</b></div></div>
                     <div className='list2'><div style={{ fontSize: 12, marginTop: 10 }}><b>10.00-11.00</b></div></div>
