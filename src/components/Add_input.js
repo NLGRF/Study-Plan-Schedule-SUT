@@ -201,7 +201,7 @@ seletCouse=(G)=>{
     let Detail = Groups[G+1]['Detail']
     let time = delete  Groups[G+1]['Detail']
     console.log(Groups[G+1]);
-    ref.child(`users/${this.state.uid}/table/${this.props.table}/course/${this.state.couseID}/`).set({
+    ref.child(`users/${this.state.uid}/table/${this.props.table}/course/${this.state.couseID.trim()}/`).set({
         name:this.state.Name,
         credit:this.state.Credit,
         groups:G+1,

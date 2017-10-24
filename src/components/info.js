@@ -4,7 +4,7 @@ export default class Info extends Component {
     render() {
         return (
             <div>
-                Info
+               Info 
             </div>
         )
     }
