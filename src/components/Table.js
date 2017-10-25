@@ -4,7 +4,6 @@ import HardTable from './HardTable.js'
 import Add_List from './Add_List'
 import Render_list from './Render_List'
 export default class Tables extends Component {
-    
     state={
             task:[],
             Mo:[],
@@ -160,10 +159,9 @@ export default class Tables extends Component {
         datas:['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
         tasksLoading:true,
         uid:''
-} 
+}
 View_list(){
     this.setState({view:true});
-    
     //this.setState({tasksLoading:true})
 }
 componentDidMount() {
@@ -176,7 +174,7 @@ rederData(){
     ///console.log(this.props)
     let key ='AIzaSyDCi-3V7lRDIsluMZ9fIHVt4oRDKQnxsfU'
     let userID
-   // let user = firebase.auth().currentUser; 
+   // let user = firebase.auth().currentUser;
     userID =  JSON.parse(localStorage.getItem(`firebase:authUser:${key}:[DEFAULT]`))
     this.setState({uid:userID.uid})
     //console.log(userID.uid)
@@ -192,7 +190,7 @@ rederData(){
                task.push({ ...shot.val()});
             });
                this.setState({ task:this.state.task.concat(task)});
-      }).then(()=>{ 
+      }).then(()=>{
          console.log(main.state.task)
          let times=[]
          main.state.task.map((data,dataid)=>{
@@ -283,110 +281,110 @@ rowMo(){
     if(half=='00'){
         if(x=='08'){
             ////console.log(1)
-            rowMo.push(<div style={{marginLeft:72.16}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowMo.push(<div style={{marginLeft:72.16}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }else if(x=='09'){
            // //console.log(2)
-            rowMo.push(<div style={{marginLeft:72.16*2}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowMo.push(<div style={{marginLeft:72.16*2}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }else if(x=='10'){
             ////console.log(2)
-            rowMo.push(<div style={{marginLeft:72.16*3}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowMo.push(<div style={{marginLeft:72.16*3}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }else if(x=='11'){
             ////console.log(2)
-            rowMo.push(<div style={{marginLeft:72.16*4}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowMo.push(<div style={{marginLeft:72.16*4}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='13'){
             //console.log(2)
-            rowMo.push(<div style={{marginLeft:72.16*6}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowMo.push(<div style={{marginLeft:72.16*6}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='14'){
             //console.log(2)
-            rowMo.push(<div style={{marginLeft:72.16*7}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowMo.push(<div style={{marginLeft:72.16*7}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='15'){
             //console.log(2)
-            rowMo.push(<div style={{marginLeft:72.16*8}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowMo.push(<div style={{marginLeft:72.16*8}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='16'){
             //console.log(2)
-            rowMo.push(<div style={{marginLeft:72.16*9}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowMo.push(<div style={{marginLeft:72.16*9}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='17'){
             //console.log(2)
-            rowMo.push(<div style={{marginLeft:72.16*10}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowMo.push(<div style={{marginLeft:72.16*10}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='18'){
             //console.log(2)
-            rowMo.push(<div style={{marginLeft:72.16*11}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowMo.push(<div style={{marginLeft:72.16*11}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='19'){
             //console.log(2)
-            rowMo.push(<div style={{marginLeft:72.16*12}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowMo.push(<div style={{marginLeft:72.16*12}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='20'){
             //console.log(2)
-            rowMo.push(<div style={{marginLeft:72.16*13}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowMo.push(<div style={{marginLeft:72.16*13}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else{
             //console.log(3)
-            rowMo.push(<div style={{marginLeft:72.16*14}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowMo.push(<div style={{marginLeft:72.16*14}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
       }
       else{
          if(x=='08'){
             ////console.log(1)
-            rowMo.push(<div style={{marginLeft:72.16*1}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowMo.push(<div style={{marginLeft:72.16*1}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }else if(x=='09'){
            // //console.log(2)
-            rowMo.push(<div style={{marginLeft:72.16*2}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowMo.push(<div style={{marginLeft:72.16*2}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }else if(x=='10'){
             ////console.log(2)
-            rowMo.push(<div style={{marginLeft:72.16*3}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowMo.push(<div style={{marginLeft:72.16*3}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }else if(x=='11'){
             ////console.log(2)
-            rowMo.push(<div style={{marginLeft:72.16*4}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowMo.push(<div style={{marginLeft:72.16*4}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='13'){
             //console.log(2)
-            rowMo.push(<div style={{marginLeft:72.16*6}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowMo.push(<div style={{marginLeft:72.16*6}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='14'){
             //console.log(2)
-            rowMo.push(<div style={{marginLeft:72.16*7}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowMo.push(<div style={{marginLeft:72.16*7}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='15'){
             //console.log(2)
-            rowMo.push(<div style={{marginLeft:72.16*8}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowMo.push(<div style={{marginLeft:72.16*8}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='16'){
             //console.log(2)
-            rowMo.push(<div style={{marginLeft:72.16*9}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowMo.push(<div style={{marginLeft:72.16*9}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='17'){
             //console.log(2)
             //12.51
-            rowMo.push(<div style={{marginLeft:72.16*10}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowMo.push(<div style={{marginLeft:72.16*10}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='18'){
             //console.log(2)
-            rowMo.push(<div style={{marginLeft:72.16*11}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowMo.push(<div style={{marginLeft:72.16*11}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='19'){
             //console.log(2)
-            rowMo.push(<div style={{marginLeft:72.16*12}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowMo.push(<div style={{marginLeft:72.16*12}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='20'){
             //console.log(2)
-            rowMo.push(<div style={{marginLeft:72.16*13}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowMo.push(<div style={{marginLeft:72.16*13}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else{
             //console.log(3)
-            rowMo.push(<div style={{marginLeft:72.16*14}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowMo.push(<div style={{marginLeft:72.16*14}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
-      }  
-    }); 
+      }
+    });
     rowMo.splice(0,0,<div className='list2'><div>{this.state.datas[0]}</div></div>)
     ////console.log(rowMo.length)
-    this.setState({rowMo:rowMo});   
+    this.setState({rowMo:rowMo});
     //   //console.log(bands.sort(compare));
 }
 rowTu(){
@@ -413,110 +411,110 @@ rowTu(){
     if(half=='00'){
         if(x=='08'){
             ////console.log(1)
-            rowTu.push(<div style={{marginLeft:72.16}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowTu.push(<div style={{marginLeft:72.16}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }else if(x=='09'){
            // //console.log(2)
-            rowTu.push(<div style={{marginLeft:72.16*2}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowTu.push(<div style={{marginLeft:72.16*2}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }else if(x=='10'){
             ////console.log(2)
-            rowTu.push(<div style={{marginLeft:72.16*3}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowTu.push(<div style={{marginLeft:72.16*3}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }else if(x=='11'){
             ////console.log(2)
-            rowTu.push(<div style={{marginLeft:72.16*4}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowTu.push(<div style={{marginLeft:72.16*4}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='13'){
             //console.log(2)
-            rowTu.push(<div style={{marginLeft:72.16*6}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowTu.push(<div style={{marginLeft:72.16*6}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='14'){
             //console.log(2)
-            rowTu.push(<div style={{marginLeft:72.16*7}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowTu.push(<div style={{marginLeft:72.16*7}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='15'){
             //console.log(2)
-            rowTu.push(<div style={{marginLeft:72.16*8}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowTu.push(<div style={{marginLeft:72.16*8}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='16'){
             //console.log(2)
-            rowTu.push(<div style={{marginLeft:72.16*9}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowTu.push(<div style={{marginLeft:72.16*9}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='17'){
             //console.log(2)
-            rowTu.push(<div style={{marginLeft:72.16*10}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowTu.push(<div style={{marginLeft:72.16*10}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='18'){
             //console.log(2)
-            rowTu.push(<div style={{marginLeft:72.16*11}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowTu.push(<div style={{marginLeft:72.16*11}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='19'){
             //console.log(2)
-            rowTu.push(<div style={{marginLeft:72.16*12}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowTu.push(<div style={{marginLeft:72.16*12}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='20'){
             //console.log(2)
-            rowTu.push(<div style={{marginLeft:72.16*13}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowTu.push(<div style={{marginLeft:72.16*13}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else{
             //console.log(3)
-            rowTu.push(<div style={{marginLeft:72.16*14}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowTu.push(<div style={{marginLeft:72.16*14}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
       }
       else{
          if(x=='08'){
             ////console.log(1)
-            rowTu.push(<div style={{marginLeft:72.16*1}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowTu.push(<div style={{marginLeft:72.16*1}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }else if(x=='09'){
            // //console.log(2)
-            rowTu.push(<div style={{marginLeft:72.16*2}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowTu.push(<div style={{marginLeft:72.16*2}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }else if(x=='10'){
             ////console.log(2)
-            rowTu.push(<div style={{marginLeft:72.16*3}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowTu.push(<div style={{marginLeft:72.16*3}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }else if(x=='11'){
             ////console.log(2)
-            rowTu.push(<div style={{marginLeft:72.16*4}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowTu.push(<div style={{marginLeft:72.16*4}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='13'){
             //console.log(2)
-            rowTu.push(<div style={{marginLeft:72.16*6}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowTu.push(<div style={{marginLeft:72.16*6}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='14'){
             //console.log(2)
-            rowTu.push(<div style={{marginLeft:72.16*7}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowTu.push(<div style={{marginLeft:72.16*7}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='15'){
             //console.log(2)
-            rowTu.push(<div style={{marginLeft:72.16*8}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowTu.push(<div style={{marginLeft:72.16*8}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='16'){
             //console.log(2)
-            rowTu.push(<div style={{marginLeft:72.16*9}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowTu.push(<div style={{marginLeft:72.16*9}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='17'){
             //console.log(2)
             //12.51
-            rowTu.push(<div style={{marginLeft:72.16*10}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowTu.push(<div style={{marginLeft:72.16*10}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='18'){
             //console.log(2)
-            rowTu.push(<div style={{marginLeft:72.16*11}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowTu.push(<div style={{marginLeft:72.16*11}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='19'){
             //console.log(2)
-            rowTu.push(<div style={{marginLeft:72.16*12}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowTu.push(<div style={{marginLeft:72.16*12}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='20'){
             //console.log(2)
-            rowTu.push(<div style={{marginLeft:72.16*13}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowTu.push(<div style={{marginLeft:72.16*13}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else{
             //console.log(3)
-            rowTu.push(<div style={{marginLeft:72.16*14}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowTu.push(<div style={{marginLeft:72.16*14}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
-      }  
-    }); 
+      }
+    });
     rowTu.splice(0,0,<div className='list2'><div>{this.state.datas[1]}</div></div>)
     ////console.log(rowMo.length)
-    this.setState({rowTu:rowTu});   
+    this.setState({rowTu:rowTu});
     //   //console.log(bands.sort(compare));
 }
 rowWe(){
@@ -543,110 +541,110 @@ rowWe(){
     if(half=='00'){
         if(x=='08'){
             ////console.log(1)
-            rowWe.push(<div style={{marginLeft:72.16}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowWe.push(<div style={{marginLeft:72.16}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }else if(x=='09'){
            // //console.log(2)
-            rowWe.push(<div style={{marginLeft:72.16*2}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowWe.push(<div style={{marginLeft:72.16*2}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }else if(x=='10'){
             ////console.log(2)
-            rowWe.push(<div style={{marginLeft:72.16*3}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowWe.push(<div style={{marginLeft:72.16*3}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }else if(x=='11'){
             ////console.log(2)
-            rowWe.push(<div style={{marginLeft:72.16*4}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowWe.push(<div style={{marginLeft:72.16*4}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='13'){
             //console.log(2)
-            rowWe.push(<div style={{marginLeft:72.16*6}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowWe.push(<div style={{marginLeft:72.16*6}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='14'){
             //console.log(2)
-            rowWe.push(<div style={{marginLeft:72.16*7}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowWe.push(<div style={{marginLeft:72.16*7}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='15'){
             //console.log(2)
-            rowWe.push(<div style={{marginLeft:72.16*8}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowWe.push(<div style={{marginLeft:72.16*8}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='16'){
             //console.log(2)
-            rowWe.push(<div style={{marginLeft:72.16*9}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowWe.push(<div style={{marginLeft:72.16*9}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='17'){
             //console.log(2)
-            rowWe.push(<div style={{marginLeft:72.16*10}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowWe.push(<div style={{marginLeft:72.16*10}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='18'){
             //console.log(2)
-            rowWe.push(<div style={{marginLeft:72.16*11}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowWe.push(<div style={{marginLeft:72.16*11}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='19'){
             //console.log(2)
-            rowWe.push(<div style={{marginLeft:72.16*12}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowWe.push(<div style={{marginLeft:72.16*12}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='20'){
             //console.log(2)
-            rowWe.push(<div style={{marginLeft:72.16*13}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowWe.push(<div style={{marginLeft:72.16*13}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else{
             //console.log(3)
-            rowWe.push(<div style={{marginLeft:72.16*14}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowWe.push(<div style={{marginLeft:72.16*14}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
       }
       else{
          if(x=='08'){
             ////console.log(1)
-            rowWe.push(<div style={{marginLeft:72.16*1}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowWe.push(<div style={{marginLeft:72.16*1}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }else if(x=='09'){
            // //console.log(2)
-            rowWe.push(<div style={{marginLeft:72.16*2}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowWe.push(<div style={{marginLeft:72.16*2}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }else if(x=='10'){
             ////console.log(2)
-            rowWe.push(<div style={{marginLeft:72.16*3}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowWe.push(<div style={{marginLeft:72.16*3}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }else if(x=='11'){
             ////console.log(2)
-            rowWe.push(<div style={{marginLeft:72.16*4}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowWe.push(<div style={{marginLeft:72.16*4}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='13'){
             //console.log(2)
-            rowWe.push(<div style={{marginLeft:72.16*6}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowWe.push(<div style={{marginLeft:72.16*6}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='14'){
             //console.log(2)
-            rowWe.push(<div style={{marginLeft:72.16*7}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowWe.push(<div style={{marginLeft:72.16*7}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='15'){
             //console.log(2)
-            rowWe.push(<div style={{marginLeft:72.16*8}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowWe.push(<div style={{marginLeft:72.16*8}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='16'){
             //console.log(2)
-            rowWe.push(<div style={{marginLeft:72.16*9}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowWe.push(<div style={{marginLeft:72.16*9}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='17'){
             //console.log(2)
             //12.51
-            rowWe.push(<div style={{marginLeft:72.16*10}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowWe.push(<div style={{marginLeft:72.16*10}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='18'){
             //console.log(2)
-            rowWe.push(<div style={{marginLeft:72.16*11}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowWe.push(<div style={{marginLeft:72.16*11}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='19'){
             //console.log(2)
-            rowWe.push(<div style={{marginLeft:72.16*12}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowWe.push(<div style={{marginLeft:72.16*12}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='20'){
             //console.log(2)
-            rowWe.push(<div style={{marginLeft:72.16*13}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowWe.push(<div style={{marginLeft:72.16*13}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else{
             //console.log(3)
-            rowWe.push(<div style={{marginLeft:72.16*14}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowWe.push(<div style={{marginLeft:72.16*14}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
-      }  
-    }); 
+      }
+    });
     rowWe.splice(0,0,<div className='list2'><div>{this.state.datas[2]}</div></div>)
     ////console.log(rowMo.length)
-    this.setState({rowWe:rowWe});   
+    this.setState({rowWe:rowWe});
     //   //console.log(bands.sort(compare));
 }
 rowTh(){
@@ -673,110 +671,110 @@ rowTh(){
     if(half=='00'){
         if(x=='08'){
             ////console.log(1)
-            rowTh.push(<div style={{marginLeft:72.16}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowTh.push(<div style={{marginLeft:72.16}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }else if(x=='09'){
            // //console.log(2)
-            rowTh.push(<div style={{marginLeft:72.16*2}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowTh.push(<div style={{marginLeft:72.16*2}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }else if(x=='10'){
             ////console.log(2)
-            rowTh.push(<div style={{marginLeft:72.16*3}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowTh.push(<div style={{marginLeft:72.16*3}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }else if(x=='11'){
             ////console.log(2)
-            rowTh.push(<div style={{marginLeft:72.16*4}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowTh.push(<div style={{marginLeft:72.16*4}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='13'){
             //console.log(2)
-            rowTh.push(<div style={{marginLeft:72.16*6}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowTh.push(<div style={{marginLeft:72.16*6}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='14'){
             //console.log(2)
-            rowTh.push(<div style={{marginLeft:72.16*7}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowTh.push(<div style={{marginLeft:72.16*7}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='15'){
             //console.log(2)
-            rowTh.push(<div style={{marginLeft:72.16*8}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowTh.push(<div style={{marginLeft:72.16*8}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='16'){
             //console.log(2)
-            rowTh.push(<div style={{marginLeft:72.16*9}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowTh.push(<div style={{marginLeft:72.16*9}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='17'){
             //console.log(2)
-            rowTh.push(<div style={{marginLeft:72.16*10}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowTh.push(<div style={{marginLeft:72.16*10}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='18'){
             //console.log(2)
-            rowTh.push(<div style={{marginLeft:72.16*11}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowTh.push(<div style={{marginLeft:72.16*11}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='19'){
             //console.log(2)
-            rowTh.push(<div style={{marginLeft:72.16*12}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowTh.push(<div style={{marginLeft:72.16*12}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='20'){
             //console.log(2)
-            rowTh.push(<div style={{marginLeft:72.16*13}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowTh.push(<div style={{marginLeft:72.16*13}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else{
             //console.log(3)
-            rowTh.push(<div style={{marginLeft:72.16*14}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowTh.push(<div style={{marginLeft:72.16*14}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
       }
       else{
          if(x=='08'){
             ////console.log(1)
-            rowTh.push(<div style={{marginLeft:72.16*1}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowTh.push(<div style={{marginLeft:72.16*1}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }else if(x=='09'){
            // //console.log(2)
-            rowTh.push(<div style={{marginLeft:72.16*2}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowTh.push(<div style={{marginLeft:72.16*2}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }else if(x=='10'){
             ////console.log(2)
-            rowTh.push(<div style={{marginLeft:72.16*3}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowTh.push(<div style={{marginLeft:72.16*3}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }else if(x=='11'){
             ////console.log(2)
-            rowTh.push(<div style={{marginLeft:72.16*4}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowTh.push(<div style={{marginLeft:72.16*4}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='13'){
             //console.log(2)
-            rowTh.push(<div style={{marginLeft:72.16*6}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowTh.push(<div style={{marginLeft:72.16*6}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='14'){
             //console.log(2)
-            rowTh.push(<div style={{marginLeft:72.16*7}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowTh.push(<div style={{marginLeft:72.16*7}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='15'){
             //console.log(2)
-            rowTh.push(<div style={{marginLeft:72.16*8}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowTh.push(<div style={{marginLeft:72.16*8}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='16'){
             //console.log(2)
-            rowTh.push(<div style={{marginLeft:72.16*9}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowTh.push(<div style={{marginLeft:72.16*9}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='17'){
             //console.log(2)
             //12.51
-            rowTh.push(<div style={{marginLeft:72.16*10}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowTh.push(<div style={{marginLeft:72.16*10}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='18'){
             //console.log(2)
-            rowTh.push(<div style={{marginLeft:72.16*11}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowTh.push(<div style={{marginLeft:72.16*11}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='19'){
             //console.log(2)
-            rowTh.push(<div style={{marginLeft:72.16*12}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowTh.push(<div style={{marginLeft:72.16*12}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='20'){
             //console.log(2)
-            rowTh.push(<div style={{marginLeft:72.16*13}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowTh.push(<div style={{marginLeft:72.16*13}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else{
             //console.log(3)
-            rowTh.push(<div style={{marginLeft:72.16*14}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowTh.push(<div style={{marginLeft:72.16*14}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
-      }  
-    }); 
+      }
+    });
     rowTh.splice(0,0,<div className='list2'><div>{this.state.datas[3]}</div></div>)
     ////console.log(rowMo.length)
-    this.setState({rowTh:rowTh});   
+    this.setState({rowTh:rowTh});
     //   //console.log(bands.sort(compare));
     //   //console.log(bands.sort(compare));
 }
@@ -804,110 +802,110 @@ rowFr(){
     if(half=='00'){
         if(x=='08'){
             ////console.log(1)
-            rowFr.push(<div style={{marginLeft:72.16}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowFr.push(<div style={{marginLeft:72.16}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }else if(x=='09'){
            // //console.log(2)
-            rowFr.push(<div style={{marginLeft:72.16*2}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowFr.push(<div style={{marginLeft:72.16*2}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }else if(x=='10'){
             ////console.log(2)
-            rowFr.push(<div style={{marginLeft:72.16*3}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowFr.push(<div style={{marginLeft:72.16*3}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }else if(x=='11'){
             ////console.log(2)
-            rowFr.push(<div style={{marginLeft:72.16*4}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowFr.push(<div style={{marginLeft:72.16*4}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='13'){
             //console.log(2)
-            rowFr.push(<div style={{marginLeft:72.16*6}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowFr.push(<div style={{marginLeft:72.16*6}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='14'){
             //console.log(2)
-            rowFr.push(<div style={{marginLeft:72.16*7}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowFr.push(<div style={{marginLeft:72.16*7}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='15'){
             //console.log(2)
-            rowFr.push(<div style={{marginLeft:72.16*8}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowFr.push(<div style={{marginLeft:72.16*8}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='16'){
             //console.log(2)
-            rowFr.push(<div style={{marginLeft:72.16*9}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowFr.push(<div style={{marginLeft:72.16*9}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='17'){
             //console.log(2)
-            rowFr.push(<div style={{marginLeft:72.16*10}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowFr.push(<div style={{marginLeft:72.16*10}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='18'){
             //console.log(2)
-            rowFr.push(<div style={{marginLeft:72.16*11}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowFr.push(<div style={{marginLeft:72.16*11}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='19'){
             //console.log(2)
-            rowFr.push(<div style={{marginLeft:72.16*12}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowFr.push(<div style={{marginLeft:72.16*12}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='20'){
             //console.log(2)
-            rowFr.push(<div style={{marginLeft:72.16*13}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowFr.push(<div style={{marginLeft:72.16*13}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else{
             //console.log(3)
-            rowFr.push(<div style={{marginLeft:72.16*14}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowFr.push(<div style={{marginLeft:72.16*14}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
       }
       else{
          if(x=='08'){
             ////console.log(1)
-            rowFr.push(<div style={{marginLeft:72.16*1}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowFr.push(<div style={{marginLeft:72.16*1}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }else if(x=='09'){
            // //console.log(2)
-            rowFr.push(<div style={{marginLeft:72.16*2}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowFr.push(<div style={{marginLeft:72.16*2}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }else if(x=='10'){
             ////console.log(2)
-            rowFr.push(<div style={{marginLeft:72.16*3}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowFr.push(<div style={{marginLeft:72.16*3}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }else if(x=='11'){
             ////console.log(2)
-            rowFr.push(<div style={{marginLeft:72.16*4}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowFr.push(<div style={{marginLeft:72.16*4}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='13'){
             //console.log(2)
-            rowFr.push(<div style={{marginLeft:72.16*6}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowFr.push(<div style={{marginLeft:72.16*6}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='14'){
             //console.log(2)
-            rowFr.push(<div style={{marginLeft:72.16*7}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowFr.push(<div style={{marginLeft:72.16*7}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='15'){
             //console.log(2)
-            rowFr.push(<div style={{marginLeft:72.16*8}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowFr.push(<div style={{marginLeft:72.16*8}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='16'){
             //console.log(2)
-            rowFr.push(<div style={{marginLeft:72.16*9}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowFr.push(<div style={{marginLeft:72.16*9}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='17'){
             //console.log(2)
             //12.51
-            rowFr.push(<div style={{marginLeft:72.16*10}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowFr.push(<div style={{marginLeft:72.16*10}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='18'){
             //console.log(2)
-            rowFr.push(<div style={{marginLeft:72.16*11}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowFr.push(<div style={{marginLeft:72.16*11}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='19'){
             //console.log(2)
-            rowFr.push(<div style={{marginLeft:72.16*12}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowFr.push(<div style={{marginLeft:72.16*12}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='20'){
             //console.log(2)
-            rowFr.push(<div style={{marginLeft:72.16*13}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowFr.push(<div style={{marginLeft:72.16*13}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else{
             //console.log(3)
-            rowFr.push(<div style={{marginLeft:72.16*14}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowFr.push(<div style={{marginLeft:72.16*14}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
-      }  
-    }); 
+      }
+    });
     rowFr.splice(0,0,<div className='list2'><div>{this.state.datas[4]}</div></div>)
     ////console.log(rowMo.length)
-    this.setState({rowFr:rowFr});   
+    this.setState({rowFr:rowFr});
     //   //console.log(bands.sort(compare));
 }
 rowSa(){
@@ -934,110 +932,110 @@ rowSa(){
     if(half=='00'){
         if(x=='08'){
             ////console.log(1)
-            rowSa.push(<div style={{marginLeft:72.16}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowSa.push(<div style={{marginLeft:72.16}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }else if(x=='09'){
            // //console.log(2)
-            rowSa.push(<div style={{marginLeft:72.16*2}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowSa.push(<div style={{marginLeft:72.16*2}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }else if(x=='10'){
             ////console.log(2)
-            rowSa.push(<div style={{marginLeft:72.16*3}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowSa.push(<div style={{marginLeft:72.16*3}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }else if(x=='11'){
             ////console.log(2)
-            rowSa.push(<div style={{marginLeft:72.16*4}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowSa.push(<div style={{marginLeft:72.16*4}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='13'){
             //console.log(2)
-            rowSa.push(<div style={{marginLeft:72.16*6}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowSa.push(<div style={{marginLeft:72.16*6}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='14'){
             //console.log(2)
-            rowSa.push(<div style={{marginLeft:72.16*7}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowSa.push(<div style={{marginLeft:72.16*7}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='15'){
             //console.log(2)
-            rowSa.push(<div style={{marginLeft:72.16*8}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowSa.push(<div style={{marginLeft:72.16*8}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='16'){
             //console.log(2)
-            rowSa.push(<div style={{marginLeft:72.16*9}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowSa.push(<div style={{marginLeft:72.16*9}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='17'){
             //console.log(2)
-            rowSa.push(<div style={{marginLeft:72.16*10}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowSa.push(<div style={{marginLeft:72.16*10}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='18'){
             //console.log(2)
-            rowSa.push(<div style={{marginLeft:72.16*11}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowSa.push(<div style={{marginLeft:72.16*11}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='19'){
             //console.log(2)
-            rowSa.push(<div style={{marginLeft:72.16*12}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowSa.push(<div style={{marginLeft:72.16*12}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='20'){
             //console.log(2)
-            rowSa.push(<div style={{marginLeft:72.16*13}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowSa.push(<div style={{marginLeft:72.16*13}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else{
             //console.log(3)
-            rowSa.push(<div style={{marginLeft:72.16*14}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowSa.push(<div style={{marginLeft:72.16*14}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
       }
       else{
          if(x=='08'){
             ////console.log(1)
-            rowSa.push(<div style={{marginLeft:72.16*1}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowSa.push(<div style={{marginLeft:72.16*1}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }else if(x=='09'){
            // //console.log(2)
-            rowSa.push(<div style={{marginLeft:72.16*2}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowSa.push(<div style={{marginLeft:72.16*2}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }else if(x=='10'){
             ////console.log(2)
-            rowSa.push(<div style={{marginLeft:72.16*3}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowSa.push(<div style={{marginLeft:72.16*3}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }else if(x=='11'){
             ////console.log(2)
-            rowSa.push(<div style={{marginLeft:72.16*4}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowSa.push(<div style={{marginLeft:72.16*4}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='13'){
             //console.log(2)
-            rowSa.push(<div style={{marginLeft:72.16*6}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowSa.push(<div style={{marginLeft:72.16*6}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='14'){
             //console.log(2)
-            rowSa.push(<div style={{marginLeft:72.16*7}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowSa.push(<div style={{marginLeft:72.16*7}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='15'){
             //console.log(2)
-            rowSa.push(<div style={{marginLeft:72.16*8}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowSa.push(<div style={{marginLeft:72.16*8}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='16'){
             //console.log(2)
-            rowSa.push(<div style={{marginLeft:72.16*9}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowSa.push(<div style={{marginLeft:72.16*9}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='17'){
             //console.log(2)
             //12.51
-            rowSa.push(<div style={{marginLeft:72.16*10}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowSa.push(<div style={{marginLeft:72.16*10}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='18'){
             //console.log(2)
-            rowSa.push(<div style={{marginLeft:72.16*11}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowSa.push(<div style={{marginLeft:72.16*11}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='19'){
             //console.log(2)
-            rowSa.push(<div style={{marginLeft:72.16*12}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowSa.push(<div style={{marginLeft:72.16*12}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='20'){
             //console.log(2)
-            rowSa.push(<div style={{marginLeft:72.16*13}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowSa.push(<div style={{marginLeft:72.16*13}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else{
             //console.log(3)
-            rowSa.push(<div style={{marginLeft:72.16*14}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowSa.push(<div style={{marginLeft:72.16*14}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
-      }  
-    }); 
+      }
+    });
     rowSa.splice(0,0,<div className='list2'><div>{this.state.datas[5]}</div></div>)
     ////console.log(rowMo.length)
-    this.setState({rowSa:rowSa});   
+    this.setState({rowSa:rowSa});
     //   //console.log(bands.sort(compare));
 }
 rowSu(){
@@ -1064,113 +1062,112 @@ rowSu(){
     if(half=='00'){
         if(x=='08'){
             ////console.log(1)
-            rowSu.push(<div style={{marginLeft:72.16}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowSu.push(<div style={{marginLeft:72.16}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }else if(x=='09'){
            // //console.log(2)
-            rowSu.push(<div style={{marginLeft:72.16*2}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowSu.push(<div style={{marginLeft:72.16*2}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }else if(x=='10'){
             ////console.log(2)
-            rowSu.push(<div style={{marginLeft:72.16*3}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowSu.push(<div style={{marginLeft:72.16*3}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }else if(x=='11'){
             ////console.log(2)
-            rowSu.push(<div style={{marginLeft:72.16*4}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowSu.push(<div style={{marginLeft:72.16*4}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='13'){
             //console.log(2)
-            rowSu.push(<div style={{marginLeft:72.16*6}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowSu.push(<div style={{marginLeft:72.16*6}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='14'){
             //console.log(2)
-            rowSu.push(<div style={{marginLeft:72.16*7}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowSu.push(<div style={{marginLeft:72.16*7}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='15'){
             //console.log(2)
-            rowSu.push(<div style={{marginLeft:72.16*8}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowSu.push(<div style={{marginLeft:72.16*8}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='16'){
             //console.log(2)
-            rowSu.push(<div style={{marginLeft:72.16*9}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowSu.push(<div style={{marginLeft:72.16*9}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='17'){
             //console.log(2)
-            rowSu.push(<div style={{marginLeft:72.16*10}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowSu.push(<div style={{marginLeft:72.16*10}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='18'){
             //console.log(2)
-            rowSu.push(<div style={{marginLeft:72.16*11}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowSu.push(<div style={{marginLeft:72.16*11}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='19'){
             //console.log(2)
-            rowSu.push(<div style={{marginLeft:72.16*12}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowSu.push(<div style={{marginLeft:72.16*12}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='20'){
             //console.log(2)
-            rowSu.push(<div style={{marginLeft:72.16*13}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowSu.push(<div style={{marginLeft:72.16*13}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else{
             //console.log(3)
-            rowSu.push(<div style={{marginLeft:72.16*14}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowSu.push(<div style={{marginLeft:72.16*14}}><div style={this.state.my[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
       }
       else{
          if(x=='08'){
             ////console.log(1)
-            rowSu.push(<div style={{marginLeft:72.16*1}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowSu.push(<div style={{marginLeft:72.16*1}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }else if(x=='09'){
            // //console.log(2)
-            rowSu.push(<div style={{marginLeft:72.16*2}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowSu.push(<div style={{marginLeft:72.16*2}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }else if(x=='10'){
             ////console.log(2)
-            rowSu.push(<div style={{marginLeft:72.16*3}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowSu.push(<div style={{marginLeft:72.16*3}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }else if(x=='11'){
             ////console.log(2)
-            rowSu.push(<div style={{marginLeft:72.16*4}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowSu.push(<div style={{marginLeft:72.16*4}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='13'){
             //console.log(2)
-            rowSu.push(<div style={{marginLeft:72.16*6}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowSu.push(<div style={{marginLeft:72.16*6}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='14'){
             //console.log(2)
-            rowSu.push(<div style={{marginLeft:72.16*7}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowSu.push(<div style={{marginLeft:72.16*7}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='15'){
             //console.log(2)
-            rowSu.push(<div style={{marginLeft:72.16*8}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowSu.push(<div style={{marginLeft:72.16*8}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='16'){
             //console.log(2)
-            rowSu.push(<div style={{marginLeft:72.16*9}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowSu.push(<div style={{marginLeft:72.16*9}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='17'){
             //console.log(2)
             //12.51
-            rowSu.push(<div style={{marginLeft:72.16*10}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowSu.push(<div style={{marginLeft:72.16*10}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='18'){
             //console.log(2)
-            rowSu.push(<div style={{marginLeft:72.16*11}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowSu.push(<div style={{marginLeft:72.16*11}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='19'){
             //console.log(2)
-            rowSu.push(<div style={{marginLeft:72.16*12}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowSu.push(<div style={{marginLeft:72.16*12}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else if(x=='20'){
             //console.log(2)
-            rowSu.push(<div style={{marginLeft:72.16*13}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowSu.push(<div style={{marginLeft:72.16*13}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
         else{
             //console.log(3)
-            rowSu.push(<div style={{marginLeft:72.16*14}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>); 
+            rowSu.push(<div style={{marginLeft:72.16*14}}><div style={this.state.half[y-x-1]} key={idx}><div>{d.Name}</div></div></div>);
         }
-      }  
-    }); 
+      }
+    });
     rowSu.splice(0,0,<div className='list2'><div>{this.state.datas[6]}</div></div>)
     ////console.log(rowMo.length)
-    this.setState({rowSu:rowSu});   
+    this.setState({rowSu:rowSu});
     //   //console.log(bands.sort(compare));
 }
-
 render() {
        const { task,rowMo,rowTu ,rowWe,rowTh,rowFr,rowSa,rowSu,Mo,tasksLoading} = this.state
         let taskList;

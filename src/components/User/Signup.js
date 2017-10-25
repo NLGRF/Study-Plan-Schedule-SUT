@@ -49,7 +49,20 @@ SignUp(){
    })
    return user;
   }).then((user)=>{
-     console.log(user.uid);
+     firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+              var errorCode = error.code;
+              var errorMessage = error.message;
+              // [START_EXCLUDE]
+              if (errorCode === 'auth/wrong-password') {
+                alert('Wrong password.');
+                window.location = "/"
+              } else {
+                alert(errorMessage);
+                window.location = "/"
+              }
+              console.log(error);
+              return error
+            })
    }).then(()=>this.setState({done:true}))
   
 }
@@ -125,7 +138,7 @@ SignUp(){
       </div>);
     return (
     <div>
-      { this.state.done ? <Redirect to="/info" /> : form }
+      { this.state.done ? <Redirect to="/user/console/" /> : form }
     </div>
     );
   }
