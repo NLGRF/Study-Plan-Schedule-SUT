@@ -24,8 +24,9 @@ export default class Render_list extends Component {
         modalIsOpen:false
     }
     this.closeModal = this.closeModal.bind(this);
+    this.deletTabled =this.deletTabled.bind(this);
  }
-   
+
     openModal() {
         this.setState({modalIsOpen: true});
       }
@@ -45,22 +46,38 @@ deleteTask = () => {
   //console.log(this.props,key);
     this.setState({class:'is-loading'})
     this.openModal();
-    setTimeout(()=> {
-         tasksRef.child(`/${this.state.uid}/table/${this.props.table}/course/${key}`).remove().then(()=>{
-              this.setState({done:false});
-              this.setState({class:''})
-         });
-    }, 300);
-    this.setState({done:true});
-    return <Tables up="je]"/>
+    // setTimeout(()=> {
+    //      tasksRef.child(`/${this.state.uid}/table/${this.props.table}/course/${key}`).remove().then(()=>{
+    //           this.setState({done:false});
+    //           this.setState({class:''})
+    //      });
+    // }, 300);
+    // this.setState({done:true});
+    // return <Tables up="je]"/>
   };
   componentDidMount(){
     let key ='AIzaSyDCi-3V7lRDIsluMZ9fIHVt4oRDKQnxsfU'
     let userID
-    //let user = firebase.auth().currentUser; 
+    //let user = firebase.auth().currentUser;
     userID =  JSON.parse(localStorage.getItem(`firebase:authUser:${key}:[DEFAULT]`))
     this.setState({uid:userID.uid})
       //console.log(this.props);
+  }
+  deletTabled(){
+    const { key } =this.props.task
+    console.log(key);
+    this.setState({class:'is-loading'})
+    //this.openModal();
+    // `User/${this.state.uid}/Tables/${this.props.table}/Course/${this.state.couseID.trim()}/`
+    setTimeout(()=> {
+         tasksRef.child(`/${this.state.uid}/Tables/${this.props.table}/Course/${key}`).remove().then(()=>{
+              this.setState({done:false});
+              this.setState({class:''})
+              this.closeModal()
+         });
+    }, 300);
+    this.setState({done:true});
+
   }
   render() {
     console.log(this.props.task)
@@ -87,15 +104,30 @@ deleteTask = () => {
         <div className={this.state.class}>
            {this.state.done ? list:delets}
            <Modal
-                    isOpen={this.state.modalIsOpen}
-                    onAfterOpen={this.afterOpenModal}
-                    onRequestClose={this.closeModal}
-                    style={customStyles}
-                    contentLabel="Example Modal"
-            >
-                <h1 className="title is-5">Deleted!!!</h1>
-                <div style={{textAlign:'center'}}><button onClick={this.closeModal} className='button is-danger'>Close</button></div>
-          </Modal>
+               isOpen={this.state.modalIsOpen}
+               onAfterOpen={this.afterOpenModal}
+               onRequestClose={this.closeModal}
+               style={customStyles}
+               contentLabel="Example Modal"
+           >
+           <div style={{float:'center'}}>
+               <h1 className="title is-5">ต้องการลบตารางนี้!!!</h1>
+               <div>
+                 <div className="field is-grouped is-grouped-centered">
+                     <p className="control" style={{textAlign:'center'}}>
+                         <a className="button is-primary has-text-centered" onClick={this.deletTabled}>
+                               Yes
+                         </a>
+                     </p>
+                     <p className="control"  style={{textAlign:'center'}}>
+                       <a className="button is-light" onClick={this.closeModal}>
+                             No
+                       </a>
+                     </p>
+                 </div>
+               </div>
+             </div>
+           </Modal>
         </div>
     );
   }

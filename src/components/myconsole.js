@@ -36,19 +36,24 @@ export default class MyConsole extends Component {
             uid: '',
             todo: [],
             taskLoading: true,
-            modalIsOpen: false
+            modalIsOpen: false,
+            Delete:false,
+            _key:''
         }
         this.logOut = this.logOut.bind(this);
         this.Add_Table = this.Add_Table.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.closeModal = this.closeModal.bind(this);
+        this.openModal =this.openModal.bind(this);
+        this.deletTabled = this.deletTabled.bind(this)
     }
     openModal() {
         this.setState({ modalIsOpen: true });
     }
     closeModal() {
-        this.setState({ modalIsOpen: false });
+          this.setState({ modalIsOpen: false });
+          //this.setState({Deleted:false})
     }
     componentDidMount() {
         let uid = []
@@ -62,7 +67,8 @@ export default class MyConsole extends Component {
         if (user || userID) {
             let uid = userID.uid;
             console.log(uid);
-            get.ref().child(`users/${uid}/table/`).once('value', (snap) => {
+            // `User/${this.state.uid}/Tables/${this.props.table}/`
+            get.ref().child(`User/${uid}/Tables/`).once('value', (snap) => {
                 snap.forEach(shot => {
                     let data = shot.val();
                     let keyget = Object.keys(shot.val())
@@ -77,7 +83,6 @@ export default class MyConsole extends Component {
         } else {
 
         }
-
     }
     logOut() {
         const main = this;
@@ -88,26 +93,45 @@ export default class MyConsole extends Component {
         });
     }
     deleteTable(name) {
-        let { uid } = this.state
-        //console.log(name);
+        let { uid} = this.state
+        console.log(name);
+        this.setState({_key:name})
         const main = this;
         let todo = []
-        ref.child(`users/${uid}/table/${name}`).remove().then(() => {
-            this.openModal();
-            console.log("Deleted")
-            get.ref().child(`users/${uid}/table/`).once('value', (snap) => {
-                snap.forEach(shot => {
-                    let data = shot.val();
-                    let keyget = Object.keys(shot.val())
-                    console.log(data);
-                    todo.push({
-                        name: data.name,
-                        detail: data.detail
-                    })
-                })
-                main.setState({ todo });
-            })
-        })
+        //this.setState({ modalIsOpen: true });
+        this.openModal();
+
+    }
+    deletTabled(){
+      let { uid} = this.state
+      //console.log(name);
+      //this.setState({_key:name})
+      const main = this;
+      let todo = []
+      console.log("DE")
+      console.log(this.state._key)
+      // `User/${this.state.uid}/Tables/${this.props.table}/`
+      ref.child(`User/${this.state.uid}/Tables/${this.state._key}`).remove().then(() => {
+          console.log("Deleted")
+          //this.setState({ modalIsOpen: false });
+          get.ref().child(`User/${uid}/Tables/`).once('value', (snap) => {
+              snap.forEach(shot => {
+                  let data = shot.val();
+                  let keyget = Object.keys(shot.val())
+                  console.log(data);
+                  todo.push({
+                      name: data.name,
+                      detail: data.detail
+                  })
+              })
+              main.setState({ todo });
+             //main.closeModal();
+          }).then(()=>{
+            main.closeModal()
+          })
+      })
+      //this.setState({Deleted:true})
+      this.closeModal()
     }
     handleChange = (e) => {
         if (!!this.state.error[e.target.name]) {
@@ -126,7 +150,7 @@ export default class MyConsole extends Component {
         let error = {};
         let todo = [];
         const { uid } = this.state
-        if (this.state.name === '') error.name = "Nane Tabe Don't have data";
+        if (this.state.name === '') error.name = "Name Tabe Don't have data";
         if (this.state.detail === '') error.detail = "Detail Don't have data";
         this.setState({ error })
         const inVali = Object.keys(error).length === 0
@@ -139,7 +163,7 @@ export default class MyConsole extends Component {
                 name: data.name,
                 detail: data.detail
             });
-            ref.child(`users/${uid}/table/${data.name}/`).set({
+            ref.child(`User/${uid}/Tables/${data.name}/`).set({
                 name: data.name,
                 detail: data.detail
             }).then(() => {
@@ -149,12 +173,12 @@ export default class MyConsole extends Component {
         }
     }
     ShareTable(name) {
-            this.props.history.push(`/share/${this.state.uid}/${name}`);
+           this.props.history.push(`/share/${this.state.uid}/${name}`);
     }
     ViweTabe(name) {
         // console.log(name)
     this.props.history.push(`/user/view/tables/${name}`);
-    
+
     }
     Add_Table() {
         this.setState({ popup: true });
@@ -163,6 +187,8 @@ export default class MyConsole extends Component {
         const { todo, taskLoading } = this.state
         let taskList;
         const appId="347460905704240";
+        const urls =window.location.host
+        console.log(urls)
         if (taskLoading) {
             taskList = <div className="title is-4">Loading...</div>;
         } else if (todo.length) {
@@ -191,14 +217,14 @@ export default class MyConsole extends Component {
                                     </div>
                                 </div>
                                 <footer class="card-footer">
-                                    <a class="card-footer-item" onClick={views}><i class="fa fa-cogs" aria-hidden="true" ></i><b>&nbsp;Viwe</b></a>
+                                    <a class="card-footer-item" onClick={views}><i class="fa fa-cogs" aria-hidden="true" ></i><b>&nbsp;View</b></a>
                                     <a class="card-footer-item" onClick={Share} ><i className="fa fa-reply"></i>
-                                    <FacebookShareButton url={`https://google.com`} appId={appId} >
+                                    <FacebookShareButton url={`${urls}/share/${this.state.uid}/${d.name}`} appId={appId} >
                                         Share
                                     </FacebookShareButton>
                                     </a>
                                     {/* <a href={`http://google.com/${d.name}`} >share</a> */}
-                                   
+
                                     <a class="card-footer-item" onClick={boundClick} ><i class="fa fa-times" aria-hidden="true"></i><b>&nbsp;Delete</b></a>
                                 </footer>
                             </div>
@@ -251,7 +277,7 @@ export default class MyConsole extends Component {
         </div>)
         //
         return (
-            <div className='bar-go containaer'>
+            <div className='bar-go'>
                 <nav className="navbar is-primary" role="navigation" aria-label="main navigation">
                     <div className="navbar-start">
                         <div className="navbar-item">
@@ -289,8 +315,23 @@ export default class MyConsole extends Component {
                     style={customStyles}
                     contentLabel="Example Modal"
                 >
-                    <h1 className="title is-5">Deleted!!!</h1>
-                    <div style={{ textAlign: 'center' }}><button onClick={this.closeModal} className='button is-danger'>Close</button></div>
+                <div style={{float:'center'}}>
+                    <h1 className="title is-5">ต้องการลบตารางนี้!!!</h1>
+                    <div>
+                      <div className="field is-grouped is-grouped-centered">
+                          <p className="control" style={{textAlign:'center'}}>
+                              <a className="button is-primary has-text-centered" onClick={this.deletTabled}>
+                                    Yes
+                              </a>
+                          </p>
+                          <p className="control"  style={{textAlign:'center'}}>
+                            <a className="button is-light" onClick={this.closeModal}>
+                                  No
+                            </a>
+                          </p>
+                      </div>
+                    </div>
+                  </div>
                 </Modal>
             </div>
         )

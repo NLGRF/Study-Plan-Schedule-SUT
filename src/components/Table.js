@@ -158,7 +158,8 @@ export default class Tables extends Component {
         view:false,
         datas:['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
         tasksLoading:true,
-        uid:''
+        uid:'',
+        table:''
 }
 View_list(){
     this.setState({view:true});
@@ -170,35 +171,40 @@ componentDidMount() {
 rederData(){
     const data = this.props
     console.log(data)
-    ////console.log(this.props.uid)
-    ///console.log(this.props)
+    this.setState({table:data.table})
+    //console.log(this.props.uid)
+    //console.log(this.props)
+    //let table ="Hello"
     let key ='AIzaSyDCi-3V7lRDIsluMZ9fIHVt4oRDKQnxsfU'
     let userID
-   // let user = firebase.auth().currentUser;
+   //let user = firebase.auth().currentUser;
     userID =  JSON.parse(localStorage.getItem(`firebase:authUser:${key}:[DEFAULT]`))
     this.setState({uid:userID.uid})
-    //console.log(userID.uid)
+    console.log(userID,this.props.table)
     let Mo=[],Tu=[],We=[],Th=[],Fr=[],Sa=[],Su=[];
     const {data1} =this.state
     const main= this;
     //console.log(userID.uid,userID)
     let weight=0;
-    get.ref().child(`users/${userID.uid}/table/${data.table}/course/`).once('value',(snapshot)=>{
+    // `User/${this.state.uid}/Tables/${this.props.table}/Course/${this.state.couseID.trim()}/`
+    get.ref().child(`User/${userID.uid}/Tables/${data.table}/Course/`).once('value',(snapshot)=>{
         let task=[]
             snapshot.forEach(shot => {
-              //console.log(shot.val())
+               console.log(shot.val())
                task.push({ ...shot.val()});
             });
                this.setState({ task:this.state.task.concat(task)});
-      }).then(()=>{
-         console.log(main.state.task)
+       }).then(()=>{
+          console.log(main.state.task)
+
          let times=[]
          main.state.task.map((data,dataid)=>{
               //times.push(data.time);
-              console.log(data.credit[0])
-              weight+=parseInt(data.credit[0]);
+            console.log(data.time)
+            weight+=parseInt(data.credit[0]);
+
               data.time.map((d,dix)=>{
-                  //console.log(data.name)
+                  console.log(d.Date)
                   //console.log(d.Date[2])
                   if(d.Date[2]==='น'){
                     Mo.push({

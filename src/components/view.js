@@ -23,16 +23,16 @@ componentDidMount(){
     this.setState({
          table:data.table,
          uid:data.uid,
-         done:true,           
+         done:true,
      });
-    
+
 }
 logOut(){
     const main =this;
     firebase.auth().signOut().then(function() {
          main.props.history.push("/");
       }).catch(function(error) {
-        
+
       });
 }
 MyTable_onClick(){
@@ -40,6 +40,9 @@ MyTable_onClick(){
 }
 Add_Course_onClick(){
     this.setState({view:false})
+  }
+  Back_to_view(){
+    this.props.history.push('/user/console/');
 }
     render() {
          let MyTable =(
@@ -52,6 +55,13 @@ Add_Course_onClick(){
     <div className='bar-go containaer'>
             <nav className="navbar is-primary" role="navigation" aria-label="main navigation">
                 <div className="navbar-start">
+                  <div className="navbar-item">
+                    <div className="field is-grouped">
+                        <p className="control">
+                            <a className="button is-black" onClick={this.Back_to_view.bind(this)} ><b><i className="fa fa-home" aria-hidden="true"></i></b></a>
+                        </p>
+                    </div>
+                  </div>
                     <div className="navbar-item">
                       <div className="field is-grouped">
                           <p className="control">
@@ -69,7 +79,7 @@ Add_Course_onClick(){
                     <div className="navbar-item">
                       <div className="field is-grouped">
                           <p className="control">
-                             <p className="title is-4">Table Nane:&nbsp;&nbsp;<b style={{color:'#ffffff'}}>{this.state.table}</b></p>
+                             <p className="title is-4">Table Name:&nbsp;&nbsp;<b style={{color:'#ffffff'}}>{this.state.table}</b></p>
                           </p>
                       </div>
                     </div>

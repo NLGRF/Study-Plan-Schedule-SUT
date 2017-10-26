@@ -12,7 +12,8 @@ export default class Login extends Component {
                       done:false
                       };
         this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this); 
+        this.handleSubmit = this.handleSubmit.bind(this);
+        //this.authFacebook=this.authFacebook.bind(this);
       }
 SingIn(){
        const main =this;
@@ -61,6 +62,7 @@ handleChange=(e)=>{
         }
 }
 authFacebook(){
+  const main =this;
   app.auth().signInWithPopup(facebookProvider)
   .then((user, error) => {
     if (error) {
@@ -68,14 +70,14 @@ authFacebook(){
       console.log(error)
     } else {
       //this.props.setCurrentUser(user)
-      //console.log(user)
-    this.setState({ done: true })
+      console.log(user)
+      main.setState({ done: true })
     }
   })
 }
     render() {
       const form =(
-        <div className='body'> 
+        <div className='body'>
         <div className='login'>
             <form onSubmit={this.handleSubmit}>
             <h1 className="title is-3">Welcome</h1>
@@ -84,20 +86,20 @@ authFacebook(){
           <div className="control">
             <input type="email"
                    name="email"
-                   value={this.state.user} 
-                   className="input" 
-                   placeholder='Email' 
+                   value={this.state.user}
+                   className="input"
+                   placeholder='Email'
                    onChange={this.handleChange}/>
                    <span className='App-input-span'>{this.state.error.user}</span>
           </div>
         </div>
         <div className={classnames('field App-input', { error: !!this.state.error.pass})}>
           <div className="control">
-           <input type="password" 
+           <input type="password"
                    name="pass"
-                   value={this.state.pass} 
-                   className="input" 
-                   placeholder='Password' 
+                   value={this.state.pass}
+                   className="input"
+                   placeholder='Password'
                    onChange={this.handleChange}/>
                    <span className='App-input-span'>{this.state.error.pass}</span>
           </div>
@@ -114,7 +116,7 @@ authFacebook(){
       )
         return (
          <div>
-           {this.state.done ? <Redirect to="/user/console" /> : form }    
+           {this.state.done ? <Redirect to="/user/console" /> : form }
           </div>
         )
     }

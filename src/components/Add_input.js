@@ -62,7 +62,7 @@ export default class Add_input extends Component {
             infoStatus: 'loading'
         });
 
-        fetch(`https://still-mountain-63520.herokuapp.com/api.php?id=${query}`)//103101 202109
+        fetch(`https://still-mountain-63520.herokuapp.com/api.php?id=${query}&serve=6`)//103101 202109
             .then(function (response) {
                 return response;
             })
@@ -99,10 +99,10 @@ export default class Add_input extends Component {
                 if (d !== undefined) {
                     for (let i = 1; i <= size; i++) {
                         for (let j = 0; j <= Object.keys(d[i]).length; j++) {
-                            //console.log(`key ${j}`,d[i][j]); 
+                            //console.log(`key ${j}`,d[i][j]);
                             //console.log(Object.keys(d[i]).length)
                             if ((d[i][j] !== undefined && j === 0) && Object.keys(d[i]).length === 4) {
-                                console.log(d[i][j + 2].Time) //3 
+                                console.log(d[i][j + 2].Time) //3
                                 row.push(<div>
                                     <div >
                                         <tr className="List_A" >
@@ -203,7 +203,8 @@ export default class Add_input extends Component {
         let Detail = Groups[G + 1]['Detail']
         let time = delete Groups[G + 1]['Detail']
         console.log(Groups[G + 1]);
-        ref.child(`users/${this.state.uid}/table/${this.props.table}/course/${this.state.couseID.trim()}/`).set({
+      ///  'User/' + curUser.uid + "/Tables/" + this.key + "/Course"
+        ref.child(`User/${this.state.uid}/Tables/${this.props.table}/Course/${this.state.couseID.trim()}/`).set({
             name: this.state.Name,
             credit: this.state.Credit,
             groups: G + 1,
@@ -219,14 +220,15 @@ export default class Add_input extends Component {
         const data = this.props
         let key = 'AIzaSyDCi-3V7lRDIsluMZ9fIHVt4oRDKQnxsfU'
         let userID
-        // let user = firebase.auth().currentUser; 
+        // let user = firebase.auth().currentUser;
         userID = JSON.parse(localStorage.getItem(`firebase:authUser:${key}:[DEFAULT]`))
         this.setState({ uid: userID.uid })
         let check = []
+
         get.ref().child(`users/${userID.uid}/table/${data.table}/course/`).once('value', (snap) => {
             snap.forEach((shot) => {
-                // console.log(shot.val())
-                //console.log(shot.val().time);
+                //console.log(shot.val())
+              console.log(shot.val().time);
                 check.push(shot.val().time);
             });
         })
@@ -234,6 +236,132 @@ export default class Add_input extends Component {
         console.log(this.state.check)
 
     }
+    adToTable(index) {
+    // var curUser = this.firebase.auth.currentUser;
+      // var naem_C = this.nameCoure;
+      const main =this
+      var maichone = false;
+      let { todo, Dates, noif, Groups,uid,Name,Credit } = this.state;
+      let time = delete Groups[index+ 1]['Detail']
+      get.ref(`User/${this.state.uid}/Tables/${this.props.table}/Course/`).once('value').then(data => {
+        if (this.CheckEqTime(data.val(), Groups[index + 1])) {
+          var fdb3 = get.ref(`User/${this.state.uid}/Tables/${this.props.table}/Course/${this.state.couseID.trim()}/`).once('value').then(data => {
+            if (data.val() == null) {
+                console.log("รายวิชา " + this.state.couseID.trim() + "ไม่สามารถเพิ่มลงตารางได้ เนื่องจากการชนกันของเวลา", "Error!");
+                main.setState({noif:`รายวิชา ${this.state.couseID.trim()} ไม่สามารถเพิ่มลงตารางได้ เนื่องจากการชนกันของเวลา Error!`})
+                main.openModal();
+                setTimeout(() => {
+                    main.setState({ todo: [], Name: '', Credit: '', couseID: '' })
+                    main.closeModal()
+                }, 500);
+            } else {
+              var fdb2 = get.ref(`User/${this.state.uid}/Tables/${this.props.table}`);
+              fdb2.child(`/Course/${this.state.couseID.trim()}`).set({
+                name: Name,
+                credit: Credit,
+                groups: index + 1,
+                time: Groups[index + 1]
+              }).then(data => {
+                 console.log("อัปเดทรายวิชา " + Name + " สำเร็จ", "Success!");
+                   main.setState({noif:`อัปเดทรายวิชา   ${Name}  สำเร็จ Success!`})
+                   main.openModal();
+                   setTimeout(() => {
+                       main.setState({ todo: [], Name: '', Credit: '', couseID: '' })
+                       main.closeModal()
+                   }, 500);
+                //    page.view.router.refreshPreviousPage()
+
+              });
+            }
+          });
+        }
+        else {
+          var fdb2 = get.ref(`User/${this.state.uid}/Tables/${this.props.table}`);
+          fdb2.child(`/Course/${this.state.couseID.trim()}`).set({
+            name: Name,
+            credit: Credit,
+            groups: index + 1,
+            time: Groups[index + 1]
+          }).then(data => {
+            main.setState({noif:`เพิ่มรายวิชา   ${Name}  สำเร็จ Success!`})
+            main.openModal();
+            setTimeout(() => {
+                main.setState({ todo: [], Name: '', Credit: '', couseID: '' })
+                main.closeModal()
+            }, 500);
+          });
+        }
+      });
+      //console.log(fdb);
+      /* console.log(index);
+       console.log(this.dataQuery['Groups']);
+       console.log(this.dataQuery['Groups'][index + 1]);*/
+    }
+  CheckEqTime(data1, data2) {
+        var data:boolean;
+        for (let i in data1) {
+          for (let j in data1[i].time) {
+            if (data1[i].time[j].Date != undefined) {
+              console.log(data1[i].time[j].Date);
+              for (let k in data2) {
+                if (k != 'Detail') {
+                  if (data2[k].Date == data1[i].time[j].Date) { //จอวันตรงกัน
+                    data = this.checkTime(data1[i].time[j].Time, data2[k].Time);
+                    ///console.log("เจอวันชนกัน",data2[k].Time)
+                    //เช็คเวลาในนี้
+                  }
+                }
+              }
+            }
+          }
+        }
+        return  data;
+      }
+  checkTime(Time1, Time2) {
+        var data: boolean;
+        console.log(this.findDuration(Time1), this.findDuration(Time2));
+        if (this.findDuration(Time2)[0] == this.findDuration(Time1)[this.findDuration(Time1).length - 1]) {
+          data = false;
+        } else if (this.findDuration(Time1)[0] == this.findDuration(Time2)[this.findDuration(Time2).length - 1]) {
+          data = false;
+        } else {
+          if (this.fineTimeEq(this.findDuration(Time1), this.findDuration(Time2)) == false)
+            data = false;
+          else
+            data = true;
+        }
+        return data;
+      }
+      fineTimeEq(array1, array2): boolean {
+        var data = false;
+        for (var i = 0; i < array1.length; i++) {
+          for (var j = 0; j < array1.length; j++) {
+            if (array1[i] == array2[j])
+              data = true;
+          }
+        }
+        return data;
+      }
+      findDuration(time) { //08:00-10:00
+        var min = this.findMinTime((time));
+        var max = this.findMaxTime((time));
+        var arr = [];
+        var count = 0;
+        for (var i = parseInt(min); i <= parseInt(max); i++) {
+          arr[count++] = i;
+          // console.log(i);
+        }
+        return arr;
+      }
+      findMaxTime(time): string { //08:00-12:00
+        var maxTime = time.split(":")[1].split("-")[1]; //time[1] คือช่วงเวลา เช่น 08:00-12:00
+        return maxTime;
+      }
+      findMinTime(time): string {
+        var minTime = time.split(":")[0];
+        //  console.log(minTime);
+        return minTime;
+      }
     componentWillMount() {
         // this.seletCouse();
         this._getWeatherInfo();
@@ -257,14 +385,14 @@ export default class Add_input extends Component {
         if (infoStatus === 'loaded' && this.state.row.length > 0) {
             data = <div><b>{Name}  - {Credit}</b>
                 {todo.map((d, idx) => {
-                    let boundClick = this.seletCouse.bind(this, (idx));
+                    let boundClick = this.adToTable.bind(this, (idx));
                     return <div className="field is-grouped" key={idx} >
                         <p className="control is-expanded">
                             <div><b>Group</b> {idx + 1} &nbsp;{d.Date + " "}</div>
                         </p>
                         <p className="control">
                             <a className="button is-danger" onClick={boundClick} >
-                                <p style={{ fontSize: 15 }}>Selete</p>
+                                <p style={{ fontSize: 15 }}>Select</p>
                             </a>
                         </p>
                     </div>
