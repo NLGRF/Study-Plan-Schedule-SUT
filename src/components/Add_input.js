@@ -89,7 +89,7 @@ export default class Add_input extends Component {
                 let Dates = '';
                 let times = []
                 const {
-            Name,
+                    Name,
                     Credit,
         } = this.state
                 let d = this.state.Groups;
@@ -228,7 +228,7 @@ export default class Add_input extends Component {
         get.ref().child(`users/${userID.uid}/table/${data.table}/course/`).once('value', (snap) => {
             snap.forEach((shot) => {
                 //console.log(shot.val())
-              console.log(shot.val().time);
+            //  console.log(shot.val().time);
                 check.push(shot.val().time);
             });
         })
@@ -236,31 +236,34 @@ export default class Add_input extends Component {
         console.log(this.state.check)
 
     }
-    adToTable(index) {
+adToTable(index) {
     // var curUser = this.firebase.auth.currentUser;
       // var naem_C = this.nameCoure;
       const main =this
       var maichone = false;
       let { todo, Dates, noif, Groups,uid,Name,Credit } = this.state;
+      let Detail = Groups[index + 1]['Detail']
       let time = delete Groups[index+ 1]['Detail']
-      get.ref(`User/${this.state.uid}/Tables/${this.props.table}/Course/`).once('value').then(data => {
+      get.ref(`User/${this.state.uid}/Tables/${this.props.table}/Course/`).once('value',(data) => {
+        console.log(this.CheckEqTime(data.val(), Groups[index + 1]))
         if (this.CheckEqTime(data.val(), Groups[index + 1])) {
-          var fdb3 = get.ref(`User/${this.state.uid}/Tables/${this.props.table}/Course/${this.state.couseID.trim()}/`).once('value').then(data => {
-            if (data.val() == null) {
+          var fdb3 = get.ref(`User/${this.state.uid}/Tables/${this.props.table}/Course/${this.state.couseID.trim()}/`).once('value' ,(data) => {
+            if (data.val()==null) {
                 console.log("รายวิชา " + this.state.couseID.trim() + "ไม่สามารถเพิ่มลงตารางได้ เนื่องจากการชนกันของเวลา", "Error!");
                 main.setState({noif:`รายวิชา ${this.state.couseID.trim()} ไม่สามารถเพิ่มลงตารางได้ เนื่องจากการชนกันของเวลา Error!`})
                 main.openModal();
                 setTimeout(() => {
                     main.setState({ todo: [], Name: '', Credit: '', couseID: '' })
-                    main.closeModal()
-                }, 500);
+                      main.closeModal()
+                }, 2000);
+
             } else {
               var fdb2 = get.ref(`User/${this.state.uid}/Tables/${this.props.table}`);
               fdb2.child(`/Course/${this.state.couseID.trim()}`).set({
                 name: Name,
                 credit: Credit,
                 groups: index + 1,
-                time: Groups[index + 1]
+                time: Groups[index + 1],
               }).then(data => {
                  console.log("อัปเดทรายวิชา " + Name + " สำเร็จ", "Success!");
                    main.setState({noif:`อัปเดทรายวิชา   ${Name}  สำเร็จ Success!`})
@@ -268,7 +271,8 @@ export default class Add_input extends Component {
                    setTimeout(() => {
                        main.setState({ todo: [], Name: '', Credit: '', couseID: '' })
                        main.closeModal()
-                   }, 500);
+                   }, 2000);
+                      //main.closeModal()
                 //    page.view.router.refreshPreviousPage()
 
               });
@@ -288,7 +292,8 @@ export default class Add_input extends Component {
             setTimeout(() => {
                 main.setState({ todo: [], Name: '', Credit: '', couseID: '' })
                 main.closeModal()
-            }, 500);
+            }, 2000);
+
           });
         }
       });
@@ -298,19 +303,17 @@ export default class Add_input extends Component {
        console.log(this.dataQuery['Groups'][index + 1]);*/
     }
   CheckEqTime(data1, data2) {
-        var data:boolean;
+        let data:boolean;
         for (let i in data1) {
           for (let j in data1[i].time) {
             if (data1[i].time[j].Date != undefined) {
               console.log(data1[i].time[j].Date);
               for (let k in data2) {
-                if (k != 'Detail') {
                   if (data2[k].Date == data1[i].time[j].Date) { //จอวันตรงกัน
                     data = this.checkTime(data1[i].time[j].Time, data2[k].Time);
-                    ///console.log("เจอวันชนกัน",data2[k].Time)
+                    //console.log("เจอวันชนกัน",data2[k].Time,data2[k].Date)
                     //เช็คเวลาในนี้
                   }
-                }
               }
             }
           }
@@ -318,7 +321,8 @@ export default class Add_input extends Component {
         return  data;
       }
   checkTime(Time1, Time2) {
-        var data: boolean;
+        let data: boolean;
+      //  console.log(data);
         console.log(this.findDuration(Time1), this.findDuration(Time2));
         if (this.findDuration(Time2)[0] == this.findDuration(Time1)[this.findDuration(Time1).length - 1]) {
           data = false;
@@ -332,10 +336,10 @@ export default class Add_input extends Component {
         }
         return data;
       }
-      fineTimeEq(array1, array2): boolean {
-        var data = false;
-        for (var i = 0; i < array1.length; i++) {
-          for (var j = 0; j < array1.length; j++) {
+fineTimeEq(array1, array2): boolean {
+        let data :boolean;
+        for (let i = 0; i < array1.length; i++) {
+          for (let j = 0; j < array1.length; j++) {
             if (array1[i] == array2[j])
               data = true;
           }
@@ -371,6 +375,11 @@ export default class Add_input extends Component {
     }
     closeModal() {
         this.setState({ modalIsOpen: false });
+        const {todo,Name,Credit,couseID } = this.state
+        // setTimeout(() => {
+        //     this.setState({ todo: [], Name: '', Credit: '', couseID: '' })
+        //     this.closeModal()
+        // }, 500);
     }
     render() {
         //console.log(this.state.check);
@@ -395,7 +404,7 @@ export default class Add_input extends Component {
                                 <p style={{ fontSize: 15 }}>Select</p>
                             </a>
                         </p>
-                    </div>
+                      </div>
                 })}
             </div>
         } else if (infoStatus === 'loading') {

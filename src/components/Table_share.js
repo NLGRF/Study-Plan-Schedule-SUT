@@ -179,7 +179,7 @@ rederData(){
     let userID
    //let user = firebase.auth().currentUser;
     userID =  JSON.parse(localStorage.getItem(`firebase:authUser:${key}:[DEFAULT]`))
-    this.setState({uid:userID.uid})
+    // this.setState({uid:userID.uid})
     console.log(userID,this.props.table)
     let Mo=[],Tu=[],We=[],Th=[],Fr=[],Sa=[],Su=[];
     const {data1} =this.state
@@ -1191,7 +1191,7 @@ render() {
                        <br/>
                        <h1 className="title is-5">จำนวนหน่วยกิต: {this.state.weight}</h1>
                        <a class="button is-primary is-outlined" onClick={this.View_list.bind(this)}>List Course</a>
-                       {this.state.view ? <Add_List uid={this.props.uid} table={this.props.table} />:''}
+                       {this.state.view ? <Add_List uid={this.props.data.uid} table={this.props.data.table} />:''}
                    </div>)
           } else {
             taskList = <div className="title is-1">No Course</div>;

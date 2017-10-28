@@ -32,7 +32,9 @@ export default class Share_table extends Component {
         let url = `https://google.com`;
         const appId="347460905704240";
         return (
-            <div className="container">
+            <div className="container" style={{marginTop:10}}>
+                 <i className="fa fa-rocket" aria-hidden="true"></i>
+                <div className="title is-4">Schedule Name:&nbsp;<b>{this.state.table}</b></div>
                 <Table_share data={this.props.match.params} />
                 {/* <FacebookShareButton url={url} appId={appId} >
                     Share

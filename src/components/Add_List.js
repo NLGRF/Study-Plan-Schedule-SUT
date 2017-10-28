@@ -10,13 +10,13 @@ export default class Add_list extends Component {
        }
    }
 componentDidMount(){
-    //console.log(this.props)
+     console.log(this.props)
       ////console.log(this.props)
       let key ='AIzaSyDCi-3V7lRDIsluMZ9fIHVt4oRDKQnxsfU'
       let userID
      // let user = firebase.auth().currentUser;
     //  `User/${this.state.uid}/Tables/${this.props.table}/Course/${this.state.couseID.trim()}/`
-      userID =  JSON.parse(localStorage.getItem(`firebase:authUser:${key}:[DEFAULT]`))
+    userID =  JSON.parse(localStorage.getItem(`firebase:authUser:${key}:[DEFAULT]`))
     get.ref().child(`User/${userID.uid}/Tables/${this.props.table}/Course/`).once('value',(snapshot)=>{
         let task=[]
         snapshot.forEach(shot => {

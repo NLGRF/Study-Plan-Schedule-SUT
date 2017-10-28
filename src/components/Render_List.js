@@ -111,7 +111,7 @@ deleteTask = () => {
                contentLabel="Example Modal"
            >
            <div style={{float:'center'}}>
-               <h1 className="title is-5">ต้องการลบตารางนี้!!!</h1>
+               <h1 className="title is-5">ต้องการลบรายวิชานี้!!!</h1>
                <div>
                  <div className="field is-grouped is-grouped-centered">
                      <p className="control" style={{textAlign:'center'}}>

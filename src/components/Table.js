@@ -202,7 +202,6 @@ rederData(){
               //times.push(data.time);
             console.log(data.time)
             weight+=parseInt(data.credit[0]);
-
               data.time.map((d,dix)=>{
                   console.log(d.Date)
                   //console.log(d.Date[2])
