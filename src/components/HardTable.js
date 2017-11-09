@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 export default class HaedTable extends Component {
     render() {
+      //HardTable
         return (
             <div className='T'>
                 <div className='headTable'>

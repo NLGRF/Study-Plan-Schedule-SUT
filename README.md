@@ -1,1 +1,2 @@
-## Study schedule for SUT 
+## Study schedule for SUT
+### ระบบเตรียมตัวจัดตารางเรียน ก่อนลงทะเบียนเรียน

@@ -21,14 +21,14 @@ export default class Share_table extends Component {
     }
     componentDidMount() {
         const data = this.props.match.params
-        console.log(data.uid)
+        //console.log(data.uid)
         const urls =window.location.host
-        console.log(urls)
+        ///console.log(urls)
         this.setState({ uid: data.uid, table: data.table })
     }
     render() {
         const { uid, table } = this.state
-        console.log(uid, table)
+        //console.log(uid, table)
         let url = `https://google.com`;
         const appId="347460905704240";
         return (

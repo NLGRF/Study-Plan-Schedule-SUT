@@ -37,7 +37,7 @@
   font: bold;
 }
 .headTable {
-  list-style-type: none; 
+  list-style-type: none;
   margin:0;
   padding-left: 0px;
   text-align: center;
@@ -74,8 +74,9 @@
  text-align: center;
  font-size: 15px;
  padding: 5px 0px;
+ font-weight: bold;
 }
-.body { 
+.body {
 	width: 100%;
   height:100%;
 }
@@ -84,7 +85,7 @@
   float: left;
   color: red;
 }
-.login { 
+.login {
   text-align: center;
 	position: absolute;
 	top: 40%;

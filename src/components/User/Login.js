@@ -108,7 +108,7 @@ authFacebook(){
            <input type="submit" className='button is-primary App-input-btn' value='Login' style={{width:200,fontWeight:'bold'}}/>
       </form>
         <p>
-          <a class="button is-info" style={{width:200,marginTop:10}} onClick={this.authFacebook.bind(this)}><b>Login With Facebook</b></a>
+          <a class="button is-info" style={{width:200,marginTop:10}} onClick={this.authFacebook.bind(this)}><b><i className="fa fa-facebook-official" aria-hidden="true"></i>&nbsp;Login With Facebook</b></a>
         </p>
         <u className='subtitle is-5' style={{fontSize:15}}><Link to ='/signup'>Create account</Link></u>
         </div>

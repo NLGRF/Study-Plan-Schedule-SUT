@@ -65,7 +65,7 @@ deleteTask = () => {
   }
   deletTabled(){
     const { key } =this.props.task
-    console.log(key);
+    //console.log(key);
     this.setState({class:'is-loading'})
     //this.openModal();
     // `User/${this.state.uid}/Tables/${this.props.table}/Course/${this.state.couseID.trim()}/`
@@ -80,13 +80,13 @@ deleteTask = () => {
 
   }
   render() {
-    console.log(this.props.task)
+    //console.log(this.props.task)
     const { task } = this.props;
     let times=" "
      task.time.map((time,idx)=>{
         times+=`${time.Date}:${time.Time} `
      })
-     console.log(times)
+     //console.log(times)
     let delets =(
         <div className={'is-loading'}></div>
     )

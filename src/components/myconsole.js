@@ -66,13 +66,13 @@ export default class MyConsole extends Component {
         //console.log(userID.uid)
         if (user || userID) {
             let uid = userID.uid;
-            console.log(uid);
+            //console.log(uid);
             // `User/${this.state.uid}/Tables/${this.props.table}/`
             get.ref().child(`User/${uid}/Tables/`).once('value', (snap) => {
                 snap.forEach(shot => {
                     let data = shot.val();
                     let keyget = Object.keys(shot.val())
-                    console.log(data);
+                    //console.log(data);
                     todo.push({
                         name: data.name,
                         detail: data.detail
@@ -94,7 +94,7 @@ export default class MyConsole extends Component {
     }
     deleteTable(name) {
         let { uid} = this.state
-        console.log(name);
+        //console.log(name);
         this.setState({_key:name})
         const main = this;
         let todo = []
@@ -108,17 +108,17 @@ export default class MyConsole extends Component {
       //this.setState({_key:name})
       const main = this;
       let todo = []
-      console.log("DE")
-      console.log(this.state._key)
+      //console.log("DE")
+      //console.log(this.state._key)
       // `User/${this.state.uid}/Tables/${this.props.table}/`
       ref.child(`User/${this.state.uid}/Tables/${this.state._key}`).remove().then(() => {
-          console.log("Deleted")
+          //console.log("Deleted")
           //this.setState({ modalIsOpen: false });
           get.ref().child(`User/${uid}/Tables/`).once('value', (snap) => {
               snap.forEach(shot => {
                   let data = shot.val();
                   let keyget = Object.keys(shot.val())
-                  console.log(data);
+                  //console.log(data);
                   todo.push({
                       name: data.name,
                       detail: data.detail
@@ -188,7 +188,7 @@ export default class MyConsole extends Component {
         let taskList;
         const appId="347460905704240";
         const urls =window.location.host
-        console.log(urls)
+        //console.log(urls)
         if (taskLoading) {
             taskList = <div className="title is-4">Loading...</div>;
         } else if (todo.length) {
@@ -218,9 +218,9 @@ export default class MyConsole extends Component {
                                 </div>
                                 <footer class="card-footer">
                                     <a class="card-footer-item" onClick={views}><i class="fa fa-cogs" aria-hidden="true" ></i><b>&nbsp;View</b></a>
-                                    <a class="card-footer-item" onClick={Share} ><i className="fa fa-reply"></i>
+                                    <a class="card-footer-item" onClick={Share} ><i className="fa fa-share-alt-square" aria-hidden="true"></i>
                                     <FacebookShareButton url={`${urls}/share/${this.state.uid}/${d.name}`} appId={appId} >
-                                        Share
+                                        &nbsp;Share
                                     </FacebookShareButton>
                                     </a>
                                     {/* <a href={`http://google.com/${d.name}`} >share</a> */}
@@ -308,6 +308,14 @@ export default class MyConsole extends Component {
                 {this.state.popup ? popup : ' '}
                 <br />
                 {taskList}
+                <br/>
+                <footer className="footer" style={{height:1}}>
+                            <p>
+                                <strong>Study Plan Schedule SUT</strong> by <a href="https://www.facebook.com/Thirukkeng">Phumai Chanphunga</a>
+                                <p>Computer Engineering</p><strong>Suranaree University of Technology</strong>
+                            </p>
+
+                </footer>
                 <Modal
                     isOpen={this.state.modalIsOpen}
                     onAfterOpen={this.afterOpenModal}

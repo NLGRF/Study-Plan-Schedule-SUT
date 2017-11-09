@@ -11,7 +11,7 @@ class WeatherApp extends React.Component {
     };
   };
   static defaultProps = {
-    city: 'Barcelona',
+    city: 'Bara',
   };
   _getWeatherInfo = (city) => {
     const main = this;
@@ -59,13 +59,13 @@ class WeatherApp extends React.Component {
     this._getWeatherInfo(event.target.search.value);
   };
   render() {
-    const { 
-      city, 
+    const {
+      city,
       country,
-      temperature, 
-      humidity, 
-      wind, 
-      infoStatus 
+      temperature,
+      humidity,
+      wind,
+      infoStatus
     } = this.state;
     let data = null;
     if (infoStatus == 'loaded') {
@@ -88,8 +88,8 @@ class WeatherApp extends React.Component {
       <div className="weatherApp">
         <div className="weatherQuery">
           <form onSubmit={this._handleSubmit}>
-            <input 
-              type="text" 
+            <input
+              type="text"
               name="search"
               placeholder="Search a City..."
             />
@@ -100,5 +100,5 @@ class WeatherApp extends React.Component {
     );
   };
 }
-      
+
 ReactDOM.render(<WeatherApp />, document.getElementById('app'));

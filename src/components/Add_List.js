@@ -10,7 +10,7 @@ export default class Add_list extends Component {
        }
    }
 componentDidMount(){
-     console.log(this.props)
+     //console.log(this.props)
       ////console.log(this.props)
       let key ='AIzaSyDCi-3V7lRDIsluMZ9fIHVt4oRDKQnxsfU'
       let userID

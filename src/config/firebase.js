@@ -4,6 +4,7 @@ var config = {
   authDomain: "react-firebase-68392.firebaseapp.com",
   databaseURL: "https://react-firebase-68392.firebaseio.com",
   };
+  //function config database
   export const app = firebase.initializeApp(config)
   export const ref = firebase.database().ref()
   export const get = firebase.database();

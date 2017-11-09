@@ -29,7 +29,8 @@ export default class Add_input extends Component {
             Dates: '',
             noif: '',
             uid: '',
-            modalIsOpen: false
+            modalIsOpen: false,
+            errorCs:''
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -49,7 +50,7 @@ export default class Add_input extends Component {
         }
 
     }
-    _getWeatherInfo = (id) => {
+_getWeatherInfo = (id) => {
         const main = this;
         let query = null;
         main.setState({
@@ -67,6 +68,7 @@ export default class Add_input extends Component {
                 return response;
             })
             .then(function (response) {
+              console.log(response.status);
                 if (response.status === 500) {
                     let error = {};
                     error.user = "Enter couse ID again !!! ><";
@@ -180,7 +182,7 @@ export default class Add_input extends Component {
             });
 
     }
-    handleSubmit(event) {
+handleSubmit(event) {
         event.preventDefault();
         let error = {};
         if (!this.state.couseID) error.user = "Don't have data";
@@ -195,7 +197,7 @@ export default class Add_input extends Component {
             console.log("Don't next,pls check you home")
         }
     }
-    seletCouse = (G) => {
+seletCouse = (G) => {
         let table = []
         let check = [];
         const that = this;
@@ -216,7 +218,7 @@ export default class Add_input extends Component {
             that.setState({ todo: [], Name: '', Credit: '', couseID: '' })
         }, 300);
     }
-    componentDidMount() {
+componentDidMount() {
         const data = this.props
         let key = 'AIzaSyDCi-3V7lRDIsluMZ9fIHVt4oRDKQnxsfU'
         let userID
@@ -233,7 +235,7 @@ export default class Add_input extends Component {
             });
         })
         this.setState({ check: caches })
-        console.log(this.state.check)
+        //console.log(this.state.check)
 
     }
 adToTable(index) {
@@ -249,13 +251,13 @@ adToTable(index) {
         if (this.CheckEqTime(data.val(), Groups[index + 1])) {
           var fdb3 = get.ref(`User/${this.state.uid}/Tables/${this.props.table}/Course/${this.state.couseID.trim()}/`).once('value' ,(data) => {
             if (data.val()==null) {
-                console.log("รายวิชา " + this.state.couseID.trim() + "ไม่สามารถเพิ่มลงตารางได้ เนื่องจากการชนกันของเวลา", "Error!");
-                main.setState({noif:`รายวิชา ${this.state.couseID.trim()} ไม่สามารถเพิ่มลงตารางได้ เนื่องจากการชนกันของเวลา Error!`})
+                console.log("รายวิชา " + this.state.couseID.trim() + "ไม่สามารถเพิ่มลงตารางได้ เนื่องจากการชนกันของ ", "Error!");
+                main.setState({noif:`รายวิชา ${this.state.couseID.trim()} ไม่สามารถเพิ่มลงตารางได้ เนื่องจากการชนกันของ ${main.state.errorCs} Error!`})
                 main.openModal();
                 setTimeout(() => {
                     main.setState({ todo: [], Name: '', Credit: '', couseID: '' })
                       main.closeModal()
-                }, 2000);
+                }, 3000);
 
             } else {
               var fdb2 = get.ref(`User/${this.state.uid}/Tables/${this.props.table}`);
@@ -311,6 +313,7 @@ adToTable(index) {
               for (let k in data2) {
                   if (data2[k].Date == data1[i].time[j].Date) { //จอวันตรงกัน
                     data = this.checkTime(data1[i].time[j].Time, data2[k].Time);
+                    this.setState({errorCs:`วัน:${data2[k].Date} เวลา:${data2[k].Time}`})
                     //console.log("เจอวันชนกัน",data2[k].Time,data2[k].Date)
                     //เช็คเวลาในนี้
                   }

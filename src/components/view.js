@@ -28,6 +28,7 @@ componentDidMount(){
 
 }
 logOut(){
+  //logout function
     const main =this;
     firebase.auth().signOut().then(function() {
          main.props.history.push("/");

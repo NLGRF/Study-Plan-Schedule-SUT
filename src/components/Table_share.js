@@ -170,7 +170,7 @@ componentDidMount() {
 }
 rederData(){
     const data = this.props
-    console.log(data)
+    //console.log(data)
     this.setState({table:data.table})
     //console.log(this.props.uid)
     //console.log(this.props)
@@ -180,7 +180,7 @@ rederData(){
    //let user = firebase.auth().currentUser;
     userID =  JSON.parse(localStorage.getItem(`firebase:authUser:${key}:[DEFAULT]`))
     // this.setState({uid:userID.uid})
-    console.log(userID,this.props.table)
+    //console.log(userID,this.props.table)
     let Mo=[],Tu=[],We=[],Th=[],Fr=[],Sa=[],Su=[];
     const {data1} =this.state
     const main= this;
@@ -190,16 +190,16 @@ rederData(){
     get.ref().child(`User/${this.props.data.uid}/Tables/${this.props.data.table}/Course/`).once('value',(snapshot)=>{
         let task=[]
             snapshot.forEach(shot => {
-               console.log(shot.val())
+               //console.log(shot.val())
                task.push({ ...shot.val()});
             });
                this.setState({ task:this.state.task.concat(task)});
       }).then(()=>{
-         console.log(main.state.task)
+         //console.log(main.state.task)
          let times=[]
          main.state.task.map((data,dataid)=>{
               //times.push(data.time);
-              console.log(data.credit[0])
+              //console.log(data.credit[0])
               weight+=parseInt(data.credit[0]);
               data.time.map((d,dix)=>{
                   //console.log(data.name)
@@ -245,7 +245,7 @@ rederData(){
               })
          })
          //console.log(times)
-        console.log(weight)
+        //console.log(weight)
         this.setState({
             Mo:Mo,Tu:Tu,We:We,Th:Th,Fr:Fr,Sa:Sa,weight:weight,Su:Su
         })

@@ -7,13 +7,13 @@ export default class Colum extends Component {
         }
     }
 componentDidMount(){
-        console.log(this.props.task)
+        //console.log(this.props.task)
 }
     render() {
-         console.log(this.props.task)
+        // console.log(this.props.task)
         return (
             <div>
-               
+
             </div>
         )
     }
